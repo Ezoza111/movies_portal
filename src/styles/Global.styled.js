@@ -14,8 +14,8 @@ body {
   max-width: 1440px;
   display: flex;
   flex-direction: column;
-  background-color: ${theme.colors.primaryBg};
-  color: ${theme.colors.font}
+  background-color: ${theme.colors.primary};
+  color: ${theme.colors.font};
 }
 a {
     text-decoration: none;
@@ -24,7 +24,6 @@ ul {
     list-style: none
 }
 button {
-    background-color: unset;
     border: none;
 }
 `
