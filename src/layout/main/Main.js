@@ -1,11 +1,11 @@
 import styled from 'styled-components'
 import { MainContainer } from '../../components/stupidComponents/container/MainContainer.styled'
-import { Logo } from '../../components/stupidComponents/logo/Logo'
 
 export const Main = () => {
     return (
       <StyledMain className='main'>
           <MainContainer direction={'column'} gap={'40px'} justify={'center'}>
+            fgjhfbkgfj
           </MainContainer>
       </StyledMain>
     )
