@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, ThemeProvider, TextField } from "@mui/material"
 import { MyButton } from "../../stupidComponents/button/MyButton"
 import { butonTheme } from "../../../styles/Theme"
@@ -8,7 +8,7 @@ export const Register = ({setArray, arrayUserLocalStorage}) => {
     const [nameValue, setNameValue] = React.useState('');
     const [passValue, setPassValue] = React.useState('');
     const [passCheckValue, setPassCheckValue] = React.useState('');
-    //useEffect(() => {localStorage.setItem('user', JSON.stringify([...arrayUserLocalStorage]))}, [arrayUserLocalStorage])
+
         const handleClickOpen = () => {
             setOpen(true)
          }
@@ -17,23 +17,15 @@ export const Register = ({setArray, arrayUserLocalStorage}) => {
          }
          const handleRegistration = () => {
                 const checkUserName = () => {
-                    //localStorage.removeItem('user')
-                        localStorage.setItem('user', JSON.stringify([{name: nameValue, password: passValue}]))
-                    //localStorage.setItem('user', JSON.stringify([localStorage.getItem('user'), {name: nameValue, password: passValue}])); 
-                    // if (users) {
-                    //     users.map((el) => {el.name === nameValue ?
-                    //     alert('Пользователь уже существует поменяйте имя пользователя') :
-                    //     localStorage.setItem('user', [localStorage.getItem('user'), JSON.stringify({name: nameValue, password: passValue})]); 
-                    // }) }
-                    //localStorage.setItem('user', [localStorage.getItem('user'), JSON.stringify({name: nameValue, password: passValue})]);
-                    //setArray([...arrayUserLocalStorage, {name: nameValue, password: passValue}])
-                    //setKey([...key, {name: nameValue, password: passValue}])
-                    //console.log(key[0].value);
-                    //key.find((el) => el.key === nameValue ? console.log('Bvz ceotcndetn') : setKey([...key, {[nameValue]: passValue}]))
+                    if(localStorage.getItem(nameValue)) {
+                        alert('пользователь уже существует');
+                    } else {
+                        localStorage.setItem(`${nameValue}`, JSON.stringify([{name: nameValue, password: passValue}]));
+                        handleClose()
+                    }
                 }
-                passValue === passCheckValue ? checkUserName() : console.log('неверный пароли 1 и 2');
-                handleClose()
-         }
+                passValue === passCheckValue ? checkUserName() : alert('неверный пароли 1 и 2');
+         } 
             
     return (
         <ThemeProvider theme={butonTheme}>
