@@ -6,10 +6,11 @@ import { MyButton } from "../../stupidComponents/button/MyButton";
 import PropTypes from "prop-types";
 
 // вход
-export const Entrance = ({arrayUserLocalStorage}) => {   // получает массив пользователя props.arrayUserLocalStorage
+export const Entrance = () => {
    const [open, setOpen] = React.useState(false)
    const [nameValue, setNameValue] = React.useState('');
    const [passValue, setPassValue] = React.useState('');
+
     const handleClickOpen = () => {
        setOpen(true)
     }
@@ -17,13 +18,11 @@ export const Entrance = ({arrayUserLocalStorage}) => {   // получает м�
       setOpen(false)
    }
    const handleLogIn = () => {
-      //const checkSaveUser = (localStorage.getItem('user')).find((el) => el.name === nameValue  && el.password === passValue);
-      //if(checkSaveUser !== undefined) {
-       //alert('вы зареганы');
-      //  handleClose();
-      //}
-      console.log(localStorage.getItem('user'));
-      alert('пользователь не найден')
+      const entranceAkkaunt = () => {
+        const user = JSON.parse(localStorage.getItem(nameValue));
+        user[0].password === passValue? alert('Вы вошли в аккаунт') : alert('Ой не правильный пороль');
+      }
+      localStorage.getItem(nameValue) ? entranceAkkaunt() : alert('Пользователь с таким именим не существует')
     }
   return (
    <ThemeProvider theme={butonTheme}>
