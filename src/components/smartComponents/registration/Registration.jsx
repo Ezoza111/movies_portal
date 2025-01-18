@@ -31,7 +31,7 @@ export const Register = () => {
             
     return (
         <ThemeProvider theme={butonTheme}>
-            <MyButton name='Registration' functionClick={handleClickOpen}></MyButton>
+            <MyButton name='Log in' functionClick={handleClickOpen}></MyButton>
             <Dialog open={open} onClose={handleClose} aria-labelledby="registrationDialog"
                PaperProps={{component: 'form', onSubmit: (event)=>{ 
                 event.preventDefault();
@@ -71,7 +71,7 @@ export const Register = () => {
                 />
                 </DialogContent>
                 <DialogActions>
-                <MyButton name='Registration' typeBtn='submit' />
+                <MyButton name='Log in' typeBtn='submit' />
                 <MyButton functionClick={handleClose} name='Cancel'/>
                 </DialogActions>
             </Dialog>
