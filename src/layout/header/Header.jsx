@@ -2,7 +2,7 @@ import React from "react";
 import styled from 'styled-components'
 import { Logo } from '../../components/stupidComponents/logo/Logo'
 import { MainContainer } from '../../components/stupidComponents/container/MainContainer.styled'
-import { Favorites } from '../../components/stupidComponents/favorites/Favorites'
+import { FavoritesLink } from '../../components/stupidComponents/favorites/FavoritesLink'
 import { Login } from '../../components/smartComponents/login/Login'
 import { Entrance } from '../../components/smartComponents/entrance/Entrance'
 
@@ -24,7 +24,7 @@ export const Header = () => {
     <StyledHeader className='header'>
       <MainContainer direction={'row'} justify={'space-between'} align={'center'}>
         <Logo iconId={'logo'}/>
-        <Favorites/>
+        <FavoritesLink/>
         <Entrance  loginStatusTrue = {loginStatusTrue} loginStatusFalse= {loginStatusFalse}/>
         {loginStatus ? <Login loginStatusTrue = {loginStatusTrue} loginStatusFalse= {loginStatusFalse}/>: ''}
       </MainContainer>

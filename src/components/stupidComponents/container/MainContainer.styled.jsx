@@ -6,7 +6,7 @@ import styled from 'styled-components'
       min-height: 100%;
       border: 1px solid red;
       padding: 20px 0;
-      display: flex;
+      display: ${(props) => props.display || "flex"};
       flex-direction: ${(props) => props.direction || "row"};
       justify-content: ${(props) => props.justify || "flex-start"};
       align-items: ${(props) => props.align || "stretch"};
