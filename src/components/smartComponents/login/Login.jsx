@@ -5,22 +5,14 @@ import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, T
 import { butonTheme } from "../../../styles/Theme";
 import { Entrance } from "../entrance/Entrance";
 import { Register } from "../registration/Registration";
-import { Username } from "../../stupidComponents/username/Username";
 
-export const Login = (props) => {
+export const Login = ({loginStatusTrue, loginStatusFalse}) => {
     const [openLogin, setOpenLogin] = React.useState(false);
-    const [loginStatus, setLoginStatus] = React.useState(false)
     const handleClickOpen = () => {
         setOpenLogin(true)
      }
      const handleClose = () => {
         setOpenLogin(false)
-     }
-     const loginStatusTrue = () => {
-      setLoginStatus(true)
-     }
-     const loginStatusFalse = () => {
-      setLoginStatus(false)
      }
 
     return(
@@ -35,8 +27,8 @@ export const Login = (props) => {
                  <DialogContentText>Select action</DialogContentText>
                </DialogContent>
                <DialogActions>
-                     <Entrance arrayUserLocalStorage = {props.arrayUserLocalStorage}/>
-                     <Register arrayUserLocalStorage = {props.arrayUserLocalStorage} setArray = {props.setArray}/>
+                <Entrance loginStatusTrue = {loginStatusTrue} loginStatusFalse= {loginStatusFalse}/>
+                <Register/>
              </DialogActions>
           </Dialog>
         </ThemeProvider>
