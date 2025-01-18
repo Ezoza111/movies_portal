@@ -1,16 +1,14 @@
 import React from "react"
-import { Link, ThemeProvider, Typography } from "@mui/material"
+import { ThemeProvider, Typography } from "@mui/material"
 import { butonTheme } from "../../../styles/Theme"
+import { Link } from "react-router-dom"
 
 
 export const FavoritesLink = () => {
     return (
       <Typography variant='button'>
         <ThemeProvider theme={butonTheme}>
-        <Link href="#" 
-            underline="hover" 
-            children='Favorites'
-        />
+        <Link to="/favorites">Favorites</Link>
         </ThemeProvider>
       </Typography>
     )

@@ -5,14 +5,17 @@ import reportWebVitals from './reportWebVitals';
 import { GLobalStyles } from './styles/Global.styled';
 import { ThemeProvider } from 'styled-components';
 import { theme } from './styles/Theme';
+import { BrowserRouter } from 'react-router-dom';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <GLobalStyles />
-    <ThemeProvider theme={theme}>
-      <App />
-    </ThemeProvider>
+    <BrowserRouter>
+      <GLobalStyles />
+      <ThemeProvider theme={theme}>
+        <App />
+      </ThemeProvider>
+    </BrowserRouter>
   </React.StrictMode>
 );
 
