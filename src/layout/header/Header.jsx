@@ -5,7 +5,6 @@ import { MainContainer } from '../../components/stupidComponents/container/MainC
 import { Favorites } from '../../components/stupidComponents/favorites/Favorites'
 import { Login } from '../../components/smartComponents/login/Login'
 import { Entrance } from '../../components/smartComponents/entrance/Entrance'
-import { ExitAccaunt } from "../../components/stupidComponents/exitAccaunt/exitAccaunt";
 
 
 
