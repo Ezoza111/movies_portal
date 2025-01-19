@@ -5,7 +5,7 @@ import FilmList from "../../components/smartComponents/filmList/FilmList";
 export const Main = () => {
   return (
     <StyledMain className='main'>
-      <MainContainer direction={"column"} gap={"40px"} justify={"center"}>
+      <MainContainer direction={"column"}>
         <FilmList />
       </MainContainer>
     </StyledMain>
