@@ -10,8 +10,9 @@ export const GLobalStyles = createGlobalStyle`
   box-sizing: border-box;
 }
 body {
-  margin: o auto;
-  max-width: 1440px;
+  font-family: 'Roboto', sans-serif;
+  margin: 0 auto;
+  max-width: 1280px;
   display: flex;
   flex-direction: column;
   background-color: ${theme.colors.primary};
@@ -26,4 +27,8 @@ ul {
 button {
     border: none;
 }
-`
+input {
+    border: none;
+    font-family: inherit;
+}
+`;
