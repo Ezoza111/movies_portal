@@ -1,8 +1,7 @@
-
 import React from "react";
 import { MyButton } from "../../stupidComponents/button/MyButton";
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, ThemeProvider } from "@mui/material";
-import { butonTheme } from "../../../styles/Theme";
+import { buttonTheme } from "../../../styles/Theme";
 import { Entrance } from "../entrance/Entrance";
 import { Register } from "../registration/Registration";
 
@@ -16,7 +15,7 @@ export const Login = ({loginStatusTrue, loginStatusFalse}) => {
      }
 
     return(
-        <ThemeProvider theme={butonTheme}>
+        <ThemeProvider theme={buttonTheme}>
          <MyButton name='Login' functionClick={handleClickOpen}/>
           <Dialog 
             open={openLogin} 

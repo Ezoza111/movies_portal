@@ -1,18 +1,18 @@
-import { createTheme } from "@mui/material"
-import { red, purple} from "@mui/material/colors"
+import { createTheme } from "@mui/material";
+import { red, purple } from "@mui/material/colors";
 
 export const theme = createTheme({
-       colors: {
-       primary: '#1F1F20',
-       secondadry: '#252527',
-       accent: purple,
+  colors: {
+    primary: "#1F1F20",
+    secondary: "#252527",
+    accent: purple,
+    font: "#FFFFFF",
+  },
+});
 
-        font: '#FFFFFF',
-    },
-})
-export const butonTheme = createTheme({
-    palette: {
-       primary: purple,
-       secondadry: red,
-    },
-})
+export const buttonTheme = createTheme({
+  palette: {
+    primary: purple,
+    secondary: red,
+  },
+});

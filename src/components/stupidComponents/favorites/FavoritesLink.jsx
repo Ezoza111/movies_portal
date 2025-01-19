@@ -1,13 +1,13 @@
 import React from "react"
 import { ThemeProvider, Typography } from "@mui/material"
-import { butonTheme } from "../../../styles/Theme"
+import { buttonTheme } from "../../../styles/Theme"
 import { Link } from "react-router-dom"
 
 
 export const FavoritesLink = () => {
     return (
       <Typography variant='button'>
-        <ThemeProvider theme={butonTheme}>
+        <ThemeProvider theme={buttonTheme}>
         <Link to="/favorites">Favorites</Link>
         </ThemeProvider>
       </Typography>
