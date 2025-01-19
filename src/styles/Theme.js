@@ -13,6 +13,6 @@ export const theme = createTheme({
 export const buttonTheme = createTheme({
   palette: {
     primary: purple,
-    secondadry: red,
+    secondary: red,
   },
 });
