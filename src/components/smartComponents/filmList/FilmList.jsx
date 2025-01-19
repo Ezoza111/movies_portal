@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from "react";
 import FilmCard from "../../stupidComponents/filmCard/FilmCard";
 import axios from "axios";
+import styled from "styled-components";
 
 const FilmList = () => {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1); // Состояние для текущей страницы
+  const moviesPerPage = 10; // Количество фильмов на одной странице
 
   const options = {
     method: "GET",
@@ -34,29 +37,90 @@ const FilmList = () => {
     fetchMovies();
   }, []);
 
+  // Вычисляем фильмы для текущей страницы
+  const indexOfLastMovie = currentPage * moviesPerPage;
+  const indexOfFirstMovie = indexOfLastMovie - moviesPerPage;
+  const currentMovies = Array.isArray(movies)
+    ? movies.slice(indexOfFirstMovie, indexOfLastMovie)
+    : [];
+
+  // Функции для переключения страниц
+  const handleNextPage = () => {
+    if (currentPage < Math.ceil(movies.length / moviesPerPage)) {
+      setCurrentPage((prevPage) => prevPage + 1);
+    }
+  };
+
+  const handlePrevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage((prevPage) => prevPage - 1);
+    }
+  };
+
   if (loading) return <p>Loading...</p>;
   if (error) return <p>{error}</p>;
 
   return (
-    <div>
+    <StyledFilmListContainer>
       <h1>Top 250 TV Shows</h1>
-      <div className='film-list'>
-        {Array.isArray(movies) && movies.length > 0 ? (
-          movies.map((movie) => (
+      <StyledFilmList className='film-list'>
+        {currentMovies.length > 0 ? (
+          currentMovies.map((movie) => (
             <FilmCard
               key={movie.id}
               title={movie.primaryTitle}
               year={movie.startYear}
               rank={movie.averageRating}
-              image={movie.primaryImage} // URL изображения
+              image={movie.primaryImage}
             />
           ))
         ) : (
           <p>No movies available</p>
         )}
-      </div>
-    </div>
+      </StyledFilmList>
+
+      {/* Пагинация */}
+      <StyledPagination>
+        <button onClick={handlePrevPage} disabled={currentPage === 1}>
+          Prev
+        </button>
+        <span>
+          Page {currentPage} from {Math.ceil(movies.length / moviesPerPage)}
+        </span>
+        <button
+          onClick={handleNextPage}
+          disabled={currentPage === Math.ceil(movies.length / moviesPerPage)}>
+          Next
+        </button>
+      </StyledPagination>
+    </StyledFilmListContainer>
   );
 };
+
+const StyledFilmListContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+`;
+
+const StyledFilmList = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: space-between;
+`;
+
+const StyledPagination = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  button {
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  span {
+    padding: 5px;
+  }
+`;
 
 export default FilmList;
