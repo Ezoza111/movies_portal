@@ -10,15 +10,6 @@ const FilmList = () => {
   const [error, setError] = useState(null);
   const [currentPage, setCurrentPage] = useState(1); // Состояние для текущей страницы
   const moviesPerPage = 10; // Количество фильмов на одной странице
-
-  // добавление филма в LS по клику на LIke
-  const [favoriteFilms, setFavoriteFilms] = useLocalStorage([], 'favoriteFilmsArray');
-
-  
-  const addFavorite = ({id}) => {
-    const newItem = movies.find((film) => film.id === id)
-    setFavoriteFilms([...favoriteFilms, newItem]);
-  }
   
   const options = {
     method: "GET",
@@ -82,8 +73,8 @@ const FilmList = () => {
               year={movie.startYear}
               rank={movie.averageRating}
               image={movie.primaryImage}
-              addFavorite={addFavorite}
-              movie={movie}
+              movie={movie}  // передаю один филм
+              movies={movies} // передаю все филмы
             />
           ))
         ) : (
