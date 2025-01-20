@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-  const useLocalStorage = (initialValue, key) => {
+  export const useLocalStorage = (initialValue, key) => {
     const getValue = () => {
       const storage = localStorage.getItem(key);
       if (storage) {
@@ -14,3 +14,5 @@ import { useEffect, useState } from "react";
    
     return [value, setValue];
  }
+
+
