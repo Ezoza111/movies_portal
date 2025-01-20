@@ -47,7 +47,7 @@ export const Register = () => {
 
   return (
     <ThemeProvider theme={buttonTheme}>
-      <MyButton name='Log in' functionClick={handleClickOpen}></MyButton>
+      <MyButton name='Sign Up' functionClick={handleClickOpen}></MyButton>
       <Dialog
         open={open}
         onClose={handleClose}
@@ -103,7 +103,7 @@ export const Register = () => {
           />
         </DialogContent>
         <DialogActions>
-          <MyButton name='Log in' typeBtn='submit' />
+          <MyButton name='Sign Up' typeBtn='submit' />
           <MyButton functionClick={handleClose} name='Cancel' />
         </DialogActions>
       </Dialog>

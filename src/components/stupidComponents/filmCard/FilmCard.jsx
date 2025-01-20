@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { theme } from "../../../styles/Theme";
 import { ButttonInfo } from "../../smartComponents/buttonInfo/ButtonInfo";
 
-const FilmCard = ({ title, year, rank, image, addFavorite, movie }) => {
+const FilmCard = ({ title, year, rank, image,  movie, movies }) => {
   return (
     <StyledFilmCard className='film-card'>
       <img loading='lazy' src={image} alt={title} />
@@ -11,7 +11,7 @@ const FilmCard = ({ title, year, rank, image, addFavorite, movie }) => {
           {rank}. {title}
         </h2>
         <p>{year}</p>
-        <ButttonInfo addFavorite={addFavorite} movie={movie}/>
+        <ButttonInfo movie={movie} movies={movies}/>
       </div>
     </StyledFilmCard>
   );
