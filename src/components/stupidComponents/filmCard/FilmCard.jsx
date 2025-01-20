@@ -11,7 +11,9 @@ const FilmCard = ({ title, year, rank, image,  movie, movies }) => {
           {rank}. {title}
         </h2>
         <p>{year}</p>
-        <ButttonInfo movie={movie} movies={movies}/>
+        {//надо прописать если страница homepage рендерится то компонент button info будет если нет не будет если нет то кнопка удоляющая филм
+         }
+        <ButttonInfo movie={movie} movies={movies}/> 
       </div>
     </StyledFilmCard>
   );
