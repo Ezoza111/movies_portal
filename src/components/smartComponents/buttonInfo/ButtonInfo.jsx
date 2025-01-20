@@ -49,7 +49,7 @@ export const ButttonInfo = ({ movie, movies }) => {
   };
   return (
     <ThemeProvider theme={buttonTheme}>
-      <MyButton name="Info" functionClick={handleClickOpen} />
+      {statusBtnClick ? <MyButton name="Info" functionClick={handleClickOpen} />: <MyButton name='Remove LS' functionClick={handleClickRemoveMovie}/>}
       <Dialog
         open={openModalCard}
         onClose={handleClose}
@@ -62,7 +62,7 @@ export const ButttonInfo = ({ movie, movies }) => {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          {statusBtnClick ? (
+          {   statusBtnClick ? (
             <MyButton name="Add LS" functionClick={handleClickAddMovie} />
           ) : (
             <MyButton name="Remove LS" functionClick={handleClickRemoveMovie} />
