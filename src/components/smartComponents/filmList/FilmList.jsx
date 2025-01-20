@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import FilmCard from "../../stupidComponents/filmCard/FilmCard";
 import axios from "axios";
 import styled from "styled-components";
+import { useLocalStorage } from "../customHooks/useLocalStorage";
 
 const FilmList = () => {
   const [movies, setMovies] = useState([]);
@@ -10,12 +11,21 @@ const FilmList = () => {
   const [currentPage, setCurrentPage] = useState(1); // Состояние для текущей страницы
   const moviesPerPage = 10; // Количество фильмов на одной странице
 
+  // добавление филма в LS по клику на LIke
+  const [favoriteFilms, setFavoriteFilms] = useLocalStorage([], 'favoriteFilmsArray');
+
+  
+  const addFavorite = ({id}) => {
+    const newItem = movies.find((film) => film.id === id)
+    setFavoriteFilms([...favoriteFilms, newItem]);
+  }
+  
   const options = {
     method: "GET",
     url: "https://imdb236.p.rapidapi.com/imdb/autocomplete",
     params: { query: "break" },
     headers: {
-      "x-rapidapi-key": "60cbaed862mshc93b76ac963e23fp1b69d0jsn822fdd45c3a1",
+      "x-rapidapi-key": "462584b673mshc931f4a3e9c8cdbp11fe33jsn59ea027bfb32",
       "x-rapidapi-host": "imdb236.p.rapidapi.com",
     },
   };
@@ -72,6 +82,8 @@ const FilmList = () => {
               year={movie.startYear}
               rank={movie.averageRating}
               image={movie.primaryImage}
+              addFavorite={addFavorite}
+              movie={movie}
             />
           ))
         ) : (
