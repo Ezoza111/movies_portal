@@ -3,9 +3,9 @@ import styled from "styled-components";
 import { Logo } from "../../components/stupidComponents/logo/Logo";
 import { MainContainer } from "../../components/stupidComponents/container/MainContainer.styled";
 import { FavoritesLink } from "../../components/stupidComponents/favorites/FavoritesLink";
-import { Login } from "../../components/smartComponents/login/Login";
 import { Entrance } from "../../components/smartComponents/entrance/Entrance";
 import SearchForm from "../../components/smartComponents/searchForm/SearchForm";
+import { SignUp } from "../../components/smartComponents/signUp/SignUp";
 
 export const Header = () => {
   const [loginStatus, setLoginStatus] = React.useState(true);
@@ -30,7 +30,7 @@ export const Header = () => {
           loginStatusFalse={loginStatusFalse}
         />
         {loginStatus ? (
-          <Login
+          <SignUp
             loginStatusTrue={loginStatusTrue}
             loginStatusFalse={loginStatusFalse}
           />
