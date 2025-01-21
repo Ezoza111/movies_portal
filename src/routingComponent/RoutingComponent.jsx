@@ -1,10 +1,10 @@
 import {Link, Outlet} from 'react-router-dom'
 import { Header } from '../layout/header/Header'
 
-export const RoutingComponent = () => {
+export const RoutingComponent = ({userStatusOut}) => {
   return (
     <>
-     <Header />
+     <Header userStatusOut={userStatusOut}/>
      <main>
         <Outlet />
      </main>

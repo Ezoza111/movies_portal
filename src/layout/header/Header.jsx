@@ -7,8 +7,9 @@ import { Entrance } from "../../components/smartComponents/entrance/Entrance";
 import SearchForm from "../../components/smartComponents/searchForm/SearchForm";
 import { SignUp } from "../../components/smartComponents/signUp/SignUp";
 import { Link } from "react-router-dom";
+import { SignUpLink } from "../signUpPage/SignUpLink";
 
-export const Header = () => {
+export const Header = ({userStatusOut}) => {
   const [loginStatus, setLoginStatus] = React.useState(true);
   const loginStatusFalse = () => {
     setLoginStatus(false);
@@ -20,16 +21,18 @@ export const Header = () => {
   return (
     <StyledHeader className='header'>
       <MainContainer direction={"row"} justify={"space-between"} align={"center"}>
-        <Link to='/'><Logo iconId={"logo"} /></Link>
+        <Logo iconId={"logo"} />
         <SearchForm />
         <FavoritesLink />
         <Entrance loginStatusTrue={loginStatusTrue} loginStatusFalse={loginStatusFalse}/>
-        
+{/*         
         {loginStatus ? (
           <SignUp loginStatusTrue={loginStatusTrue} loginStatusFalse={loginStatusFalse}/>
         ) : (
           ''
-        )}
+        )} */}
+        {userStatusOut ? <SignUpLink /> : null}
+        
       </MainContainer>
     </StyledHeader>
   );

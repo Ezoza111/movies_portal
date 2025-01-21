@@ -4,6 +4,7 @@ import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, T
 import { buttonTheme } from "../../../styles/Theme";
 import { Entrance } from "../entrance/Entrance";
 import { Register } from "../registration/Registration";
+import { Link } from "react-router-dom";
 
 export const SignUp = ({loginStatusTrue, loginStatusFalse}) => {
     const [openLogin, setOpenLogin] = React.useState(false);
@@ -16,7 +17,7 @@ export const SignUp = ({loginStatusTrue, loginStatusFalse}) => {
 
     return(
         <ThemeProvider theme={buttonTheme}>
-         <MyButton name='Sign Up' functionClick={handleClickOpen}/>
+          <MyButton name='Sign Up' functionClick={handleClickOpen}/>
           <Dialog 
             open={openLogin} 
             onClose={handleClose}
