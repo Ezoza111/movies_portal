@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const MainContainer = styled.div`
   margin: 0 auto;
   border: 1px solid red;
-  padding: 20px 0;
+  padding: 20px;
   display: ${(props) => props.display || "flex"};
   flex-direction: ${(props) => props.direction || "row"};
   justify-content: ${(props) => props.justify || "flex-start"};
