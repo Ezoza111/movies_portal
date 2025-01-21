@@ -16,8 +16,7 @@ export const FavoritesPage = () => {
         <StyledFilmList>
           {favorites.length > 0 ? (
             favorites.map((film) => (
-              <FilmCard
-                key={uuidv4()} // Создание уникального ключа для каждой карточки
+              <FilmCard key={uuidv4()} // Создание уникального ключа для каждой карточки
                 movieId={film.movieId}
                 title={film.title} // Используем данные из localStorage
                 year={film.year}

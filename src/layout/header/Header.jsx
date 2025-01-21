@@ -19,26 +19,16 @@ export const Header = () => {
 
   return (
     <StyledHeader className='header'>
-      <MainContainer
-        direction={"row"}
-        justify={"space-between"}
-        align={"center"}>
-        <Link to='/'>
-          <Logo iconId={"logo"} />
-        </Link>
+      <MainContainer direction={"row"} justify={"space-between"} align={"center"}>
+        <Link to='/'><Logo iconId={"logo"} /></Link>
         <SearchForm />
         <FavoritesLink />
-        <Entrance
-          loginStatusTrue={loginStatusTrue}
-          loginStatusFalse={loginStatusFalse}
-        />
+        <Entrance loginStatusTrue={loginStatusTrue} loginStatusFalse={loginStatusFalse}/>
+        
         {loginStatus ? (
-          <SignUp
-            loginStatusTrue={loginStatusTrue}
-            loginStatusFalse={loginStatusFalse}
-          />
+          <SignUp loginStatusTrue={loginStatusTrue} loginStatusFalse={loginStatusFalse}/>
         ) : (
-          ""
+          ''
         )}
       </MainContainer>
     </StyledHeader>

@@ -2,12 +2,6 @@ import PropTypes from 'prop-types'
 import sprite from '../../../assets/images/sprite.svg'
 
 export const Icon = (props) => {
-  Icon.propsType = {
-    width: PropTypes.string,
-    height: PropTypes.string,
-    viewBox:  PropTypes.string,
-    iconId:  PropTypes.string,
-  }
     return (
       <svg
         width={props.width}
@@ -21,3 +15,10 @@ export const Icon = (props) => {
       </svg>
     );
   };
+
+  Icon.propsType = {
+    width: PropTypes.string,
+    height: PropTypes.string,
+    viewBox:  PropTypes.string,
+    iconId:  PropTypes.string,
+  }
