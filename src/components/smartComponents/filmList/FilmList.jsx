@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import FilmCard from "../../stupidComponents/filmCard/FilmCard";
 import axios from "axios";
 import styled from "styled-components";
-import { useLocalStorage } from "../customHooks/useLocalStorage";
+import { v4 as uuidv4 } from 'uuid';
+// import { useLocalStorage } from "../customHooks/useLocalStorage";
 
 const FilmList = () => {
   const [movies, setMovies] = useState([]);
@@ -13,12 +14,19 @@ const FilmList = () => {
   
   const options = {
     method: "GET",
-    url: "https://imdb236.p.rapidapi.com/imdb/autocomplete",
+    url: "https://imdb236.p.rapidapi.com/imdb/top250-movies",
     params: { query: "break" },
     headers: {
-      "x-rapidapi-key": "462584b673mshc931f4a3e9c8cdbp11fe33jsn59ea027bfb32",
+      "x-rapidapi-key": "60cbaed862mshc93b76ac963e23fp1b69d0jsn822fdd45c3a1",
       "x-rapidapi-host": "imdb236.p.rapidapi.com",
     },
+    // method: "GET",
+    // url: "https://imdb236.p.rapidapi.com/imdb/top250-movies",
+    // params: { query: "break" },
+    // headers: {
+    //   "x-rapidapi-key": "462584b673mshc931f4a3e9c8cdbp11fe33jsn59ea027bfb32",
+    //   "x-rapidapi-host": "imdb236.p.rapidapi.com",
+    // },
   };
 
   useEffect(() => {
@@ -62,19 +70,21 @@ const FilmList = () => {
   if (error) return <p>{error}</p>;
 
   return (
+    <>
     <StyledFilmListContainer>
       <h1>Top 250 TV Shows</h1>
       <StyledFilmList className='film-list'>
         {currentMovies.length > 0 ? (
           currentMovies.map((movie) => (
             <FilmCard
-              key={movie.id}
+              key={uuidv4()}
+              movieId={movie.id}
               title={movie.primaryTitle}
               year={movie.startYear}
               rank={movie.averageRating}
               image={movie.primaryImage}
-              movie={movie}  // передаю один филм
-              movies={movies} // передаю все филмы
+              runtimeMinutes={movie.runtimeMinutes}
+              description={movie.description}
             />
           ))
         ) : (
@@ -82,21 +92,22 @@ const FilmList = () => {
         )}
       </StyledFilmList>
 
-      {/* Пагинация */}
-      <StyledPagination>
-        <button onClick={handlePrevPage} disabled={currentPage === 1}>
-          Prev
-        </button>
-        <span>
-          Page {currentPage} from {Math.ceil(movies.length / moviesPerPage)}
-        </span>
-        <button
-          onClick={handleNextPage}
-          disabled={currentPage === Math.ceil(movies.length / moviesPerPage)}>
-          Next
-        </button>
-      </StyledPagination>
-    </StyledFilmListContainer>
+        {/* Пагинация */}
+        <StyledPagination>
+          <button onClick={handlePrevPage} disabled={currentPage === 1}>
+            Prev
+          </button>
+          <span>
+            Page {currentPage} from {Math.ceil(movies.length / moviesPerPage)}
+          </span>
+          <button
+            onClick={handleNextPage}
+            disabled={currentPage === Math.ceil(movies.length / moviesPerPage)}>
+            Next
+          </button>
+        </StyledPagination>
+      </StyledFilmListContainer>
+    </>
   );
 };
 

@@ -6,6 +6,7 @@ import { FavoritesLink } from "../../components/stupidComponents/favorites/Favor
 import { Entrance } from "../../components/smartComponents/entrance/Entrance";
 import SearchForm from "../../components/smartComponents/searchForm/SearchForm";
 import { SignUp } from "../../components/smartComponents/signUp/SignUp";
+import { Link } from "react-router-dom";
 
 export const Header = () => {
   const [loginStatus, setLoginStatus] = React.useState(true);
@@ -22,7 +23,9 @@ export const Header = () => {
         direction={"row"}
         justify={"space-between"}
         align={"center"}>
-        <Logo iconId={"logo"} />
+        <Link to='/'>
+          <Logo iconId={"logo"} />
+        </Link>
         <SearchForm />
         <FavoritesLink />
         <Entrance
