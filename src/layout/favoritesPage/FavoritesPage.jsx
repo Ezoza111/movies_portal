@@ -3,33 +3,36 @@ import styled from "styled-components";
 import { MainContainer } from "../../components/stupidComponents/container/MainContainer.styled";
 import FilmCard from "../../components/stupidComponents/filmCard/FilmCard";
 import { useLocalStorage } from "../../components/smartComponents/customHooks/useLocalStorage";
+import { v4 as uuidv4 } from "uuid";
 
 export const FavoritesPage = () => {
-  let [movies, setMovies] = React.useState(
-    JSON.parse(localStorage.getItem("favoriteFilmsArray"))
-  );
+  // Используем кастомный хук useLocalStorage для работы с localStorage
+  const [favorites, setFavorites] = useLocalStorage([], "favorites");
 
   return (
-    <StyledFavorites>
-      <MainContainer direction="column" wrap="wrap">
-        <div>FavoritesPage</div>
-        {localStorage.getItem("favoriteFilmsArray") ? (
-          <div>
-            {movies.map((movie) => (
+    <MainContainer>
+      <StyledFilmListContainer>
+        <h1>Favorite movies</h1>
+        <StyledFilmList>
+          {favorites.length > 0 ? (
+            favorites.map((film) => (
               <FilmCard
-                key={movie.id}
-                title={movie.primaryTitle}
-                year={movie.startYear}
-                rank={movie.averageRating}
-                image={movie.primaryImage}
+                key={uuidv4()} // Создание уникального ключа для каждой карточки
+                movieId={film.movieId}
+                title={film.title} // Используем данные из localStorage
+                year={film.year}
+                rank={film.rank}
+                image={film.image}
+                runtimeMinutes={film.runtimeMinutes}
+                description={film.description}
               />
-            ))}
-          </div>
-        ) : (
-          <div>LS пустой</div>
-        )}
-      </MainContainer>
-    </StyledFavorites>
+            ))
+          ) : (
+            <p>You don't have any favorite movies yet</p>
+          )}
+        </StyledFilmList>
+      </StyledFilmListContainer>
+    </MainContainer>
   );
 };
 
@@ -41,4 +44,17 @@ const StyledFavorites = styled.section`
 
   div {
   }
+`;
+
+const StyledFilmListContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+`;
+
+const StyledFilmList = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: space-between;
 `;
