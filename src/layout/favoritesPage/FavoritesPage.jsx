@@ -35,16 +35,6 @@ export const FavoritesPage = () => {
   );
 };
 
-const StyledFavorites = styled.section`
-  width: 100%;
-  border: 1px solid red;
-  padding-top: 30px;
-  padding-bottom: 30px;
-
-  div {
-  }
-`;
-
 const StyledFilmListContainer = styled.div`
   display: flex;
   flex-direction: column;
