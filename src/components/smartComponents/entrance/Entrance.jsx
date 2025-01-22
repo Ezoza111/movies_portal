@@ -14,12 +14,11 @@ import { ThemeProvider } from "@emotion/react";
 import { MyButton } from "../../stupidComponents/button/MyButton";
 
 // вход
-export const Entrance = ({ userName, changeUserStatus }) => {
+export const Entrance = ({ userName, changeUserStatus}) => {
   const [open, setOpen] = React.useState(false);
   const [nameValue, setNameValue] = React.useState("");
   const [passValue, setPassValue] = React.useState("");
-  // const [userOutAccaunt, setUserOutAccaunt] = React.useState(true);
-
+  //const [userOutAccaunt, setUserOutAccaunt] = React.useState(true)
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -42,8 +41,6 @@ export const Entrance = ({ userName, changeUserStatus }) => {
     localStorage.getItem(nameValue)
       ? enterAccount()
       : alert("Пользователя с таким именем не существует");
-  };
-
   return userName === null ? (
     <ThemeProvider theme={buttonTheme}>
       <MyButton name='Sign In' functionClick={handleClickOpen} />
@@ -51,12 +48,12 @@ export const Entrance = ({ userName, changeUserStatus }) => {
         Dialog
         open={open}
         onClose={handleClose}
-        aria-labelledby='entranceDialog'
+        aria-labelledby='enrtanceDialog'
         PaperProps={{ component: "form", onSubmit: 
           (event) => {
           event.preventDefault();
           handleSignIn() }}}>
-        <DialogTitle id='entranceDialog' />
+        <DialogTitle id='enrtanceDialog' />
         <DialogContent>
           <DialogContentText>Log in to see video</DialogContentText>
           <TextField
@@ -96,9 +93,7 @@ export const Entrance = ({ userName, changeUserStatus }) => {
   ) : (
     <ThemeProvider theme={buttonTheme}>
       <>
-        {" "}
-        <Box component='h3'>{nameValue.toLocaleUpperCase()}</Box>
-        <MyButton name='Exit' functionClick={exitUserAccaunt} />
+        <MyButton name='Exit' functionClick={()=>changeUserStatus(null)} />
       </>
     </ThemeProvider>
   );

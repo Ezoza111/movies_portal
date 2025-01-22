@@ -13,8 +13,10 @@ export const Main = () => {
 };
 
 const StyledMain = styled.main`
+  display: flex;
   width: 100%;
   border: 1px solid red;
   padding-top: 30px;
   padding-bottom: 30px;
+  height: 80vh;
 `;
