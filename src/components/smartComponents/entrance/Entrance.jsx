@@ -14,17 +14,12 @@ import { ThemeProvider } from "@emotion/react";
 import { MyButton } from "../../stupidComponents/button/MyButton";
 
 // вход
-export const Entrance = ({ loginStatusTrue, loginStatusFalse }) => {
+export const Entrance = ({ userName, changeUserStatus }) => {
   const [open, setOpen] = React.useState(false);
   const [nameValue, setNameValue] = React.useState("");
   const [passValue, setPassValue] = React.useState("");
-  const [userOutAccaunt, setUserOutAccaunt] = React.useState(true);
-  const signAccaunt = () => {
-    setUserOutAccaunt(false);
-  };
-  const outAccaunt = () => {
-    setUserOutAccaunt(true);
-  };
+  // const [userOutAccaunt, setUserOutAccaunt] = React.useState(true);
+
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -32,39 +27,42 @@ export const Entrance = ({ loginStatusTrue, loginStatusFalse }) => {
     setOpen(false);
   };
   const handleSignIn = () => {
-    const enterAkkaunt = () => {
+    const enterAccount = () => {
       const user = JSON.parse(localStorage.getItem(nameValue));
       if (user[0].password === passValue) {
-        loginStatusFalse();
-        signAccaunt();
+        console.log(`userStatus при клики на ышпт IN ${userName}`)
+        console.log(typeof nameValue);
+        changeUserStatus(`${nameValue}`)
+        console.log(`userStatus после клика IN ${userName}`)
       } else {
-        alert("Ой не правильный пороль");
+        alert("Ой, не правильный пароль");
       }
     };
+    
     localStorage.getItem(nameValue)
-      ? enterAkkaunt()
-      : alert("Пользователь с таким именим не существует");
+      ? enterAccount()
+      : alert("Пользователя с таким именем не существует");
   };
-  const exitUserAccaunt = () => {
-    loginStatusTrue();
-    outAccaunt();
-  };
-  return userOutAccaunt ? (
+
+  return userName === null ? (
     <ThemeProvider theme={buttonTheme}>
       <MyButton name='Sign In' functionClick={handleClickOpen} />
       <Dialog
         Dialog
         open={open}
         onClose={handleClose}
-        aria-labelledby='enrtanceDialog'
-        PaperProps={{ component: "form", onSubmit: () => handleSignIn() }}>
-        <DialogTitle id='enrtanceDialog' />
+        aria-labelledby='entranceDialog'
+        PaperProps={{ component: "form", onSubmit: 
+          (event) => {
+          event.preventDefault();
+          handleSignIn() }}}>
+        <DialogTitle id='entranceDialog' />
         <DialogContent>
-          <DialogContentText>Entrance to see video</DialogContentText>
+          <DialogContentText>Log in to see video</DialogContentText>
           <TextField
             autoFocus
             required
-            margin='dence'
+            margin='dense'
             id='name'
             value={nameValue}
             onChange={(event) => {
@@ -77,7 +75,7 @@ export const Entrance = ({ loginStatusTrue, loginStatusFalse }) => {
           <TextField
             autoFocus
             required
-            margin='dence'
+            margin='dense'
             id='pass'
             value={passValue}
             onChange={(event) => {
