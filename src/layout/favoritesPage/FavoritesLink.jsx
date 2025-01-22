@@ -1,7 +1,7 @@
 import React from "react"
 import { ThemeProvider, Typography } from "@mui/material"
-import { buttonTheme } from "../../../styles/Theme"
 import { Link } from "react-router-dom"
+import { buttonTheme } from "../../styles/Theme"
 
 
 export const FavoritesLink = () => {

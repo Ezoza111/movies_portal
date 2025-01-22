@@ -2,11 +2,11 @@ import React from "react";
 import styled from "styled-components";
 import { Logo } from "../../components/stupidComponents/logo/Logo";
 import { MainContainer } from "../../components/stupidComponents/container/MainContainer.styled";
-import { FavoritesLink } from "../../components/stupidComponents/favorites/FavoritesLink";
 import { Entrance } from "../../components/smartComponents/entrance/Entrance";
 import SearchForm from "../../components/smartComponents/searchForm/SearchForm";
 import { SignUpLink } from "../signUpPage/SignUpLink";
 import { Link } from "react-router-dom";
+import { FavoritesLink } from "../favoritesPage/FavoritesLink";
 
 export const Header = ({ userName, changeUserStatus}) => {
   const [loginStatus, setLoginStatus] = React.useState(true);
