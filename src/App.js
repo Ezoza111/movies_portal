@@ -32,7 +32,7 @@ function App() {
       <Routes>
         <Route path='/' element={<RoutingComponent userName={user.userName} changeUserStatus={changeUserStatus}/>}>
           <Route index element={<Main />} />
-          <Route path='/favorites' element={<FavoritesPage  />} />
+          <Route path='/favorites' element={<FavoritesPage userName={user.userName}/>} />
           <Route path='/login' element={<SignUpPage  userName={user.userName} changeUserStatus={changeUserStatus}/>} />
         </Route>
       </Routes>
