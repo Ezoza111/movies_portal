@@ -4,13 +4,16 @@ import { MainContainer } from "../../components/stupidComponents/container/MainC
 import FilmCard from "../../components/stupidComponents/filmCard/FilmCard";
 import { useLocalStorage } from "../../components/smartComponents/customHooks/useLocalStorage";
 import { v4 as uuidv4 } from "uuid";
+import { SignUpLink } from "../signUpPage/SignUpLink";
 
-export const FavoritesPage = () => {
+export const FavoritesPage = ({userName}) => {
   // Используем кастомный хук useLocalStorage для работы с localStorage
   const [favorites, setFavorites] = useLocalStorage([], "favorites");
 
   return (
     <MainContainer>
+      {userName === null ?  
+      <div>Для просмотра фильмов перейдите по сыылке  <SignUpLink /> для регистрации или входа</div> : 
       <StyledFilmListContainer>
         <h1>Favorite movies</h1>
         <StyledFilmList>
@@ -30,7 +33,7 @@ export const FavoritesPage = () => {
             <p>You don't have any favorite movies yet</p>
           )}
         </StyledFilmList>
-      </StyledFilmListContainer>
+      </StyledFilmListContainer>}
     </MainContainer>
   );
 };
