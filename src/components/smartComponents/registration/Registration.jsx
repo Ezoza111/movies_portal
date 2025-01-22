@@ -11,7 +11,7 @@ import {
 import { MyButton } from "../../stupidComponents/button/MyButton";
 import { buttonTheme } from "../../../styles/Theme";
 
-export const Register = () => {
+export const Registration = ({ userName, changeUserStatus}) => {
   const [open, setOpen] = React.useState(false);
   const [nameValue, setNameValue] = React.useState("");
   const [passValue, setPassValue] = React.useState("");
@@ -23,26 +23,24 @@ export const Register = () => {
   const handleClose = () => {
     setOpen(false);
   };
+
   const handleRegistration = (props) => {
     const checkUserName = () => {
       if (localStorage.getItem(nameValue)) {
-        alert("Пользователь с таким именим уже существует ");
+        alert("Пользователь с таким именем уже существует!");
       } else {
-        localStorage.setItem(
-          `${nameValue}`,
-          JSON.stringify([{ name: nameValue, password: passValue }])
-        );
-        alert(
-          "Ура вы зарегистрировались нажмите на кнопку вход для входа в приложение"
-        );
+        localStorage.setItem(`${nameValue}`, JSON.stringify([{ name: nameValue, password: passValue }]));
+
+        userName === null ? alert("Ура, вы зарегистрировались! Нажмите на кнопку Sign In для входа в приложение"): alert('Нажмите кнопку Exit для входа под другим именем')
+        //changeUserStatus(false);
         handleClose();
       }
     };
     passValue.length < 4
-      ? alert("Слишком короткий пороль введите чуть по длиннее")
+      ? alert("Слишком короткий пароль!")
       : passValue === passCheckValue
       ? checkUserName()
-      : alert("Пороли не совпадают попробуйте снова");
+      : alert("Пароли не совпадают. Попробуйте снова");
   };
 
   return (
@@ -91,7 +89,7 @@ export const Register = () => {
           <TextField
             autoFocus
             required
-            margin='dence'
+            margin='dense'
             id='passCheck'
             value={passCheckValue}
             onChange={(event) => {
