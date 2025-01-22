@@ -5,10 +5,10 @@ import { MainContainer } from "../../components/stupidComponents/container/MainC
 import { FavoritesLink } from "../../components/stupidComponents/favorites/FavoritesLink";
 import { Entrance } from "../../components/smartComponents/entrance/Entrance";
 import SearchForm from "../../components/smartComponents/searchForm/SearchForm";
-import { SignUp } from "../../components/smartComponents/signUp/SignUp";
+import { SignUpLink } from "../signUpPage/SignUpLink";
 import { Link } from "react-router-dom";
 
-export const Header = () => {
+export const Header = ({ userName, changeUserStatus}) => {
   const [loginStatus, setLoginStatus] = React.useState(true);
   const loginStatusFalse = () => {
     setLoginStatus(false);
@@ -20,16 +20,12 @@ export const Header = () => {
   return (
     <StyledHeader className='header'>
       <MainContainer direction={"row"} justify={"space-between"} align={"center"}>
-        <Link to='/'><Logo iconId={"logo"} /></Link>
+        <Logo iconId={"logo"} />
         <SearchForm />
         <FavoritesLink />
-        <Entrance loginStatusTrue={loginStatusTrue} loginStatusFalse={loginStatusFalse}/>
+        {userName === null ?<Link to='/login'>Sign In</Link> : <div>{userName}</div>}
+        <SignUpLink />
         
-        {loginStatus ? (
-          <SignUp loginStatusTrue={loginStatusTrue} loginStatusFalse={loginStatusFalse}/>
-        ) : (
-          ''
-        )}
       </MainContainer>
     </StyledHeader>
   );

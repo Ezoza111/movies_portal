@@ -11,15 +11,15 @@ const FilmList = () => {
   const [error, setError] = useState(null);
   const [currentPage, setCurrentPage] = useState(1); // Состояние для текущей страницы
   const moviesPerPage = 10; // Количество фильмов на одной странице
-  
+  const moviesArrayForExperement = [...movies];
   const options = {
-    method: "GET",
-    url: "https://imdb236.p.rapidapi.com/imdb/top250-movies",
-    params: { query: "break" },
-    headers: {
-      "x-rapidapi-key": "60cbaed862mshc93b76ac963e23fp1b69d0jsn822fdd45c3a1",
-      "x-rapidapi-host": "imdb236.p.rapidapi.com",
-    },
+    // method: "GET",
+    // url: "https://imdb236.p.rapidapi.com/imdb/top250-movies",
+    // params: { query: "break" },
+    // headers: {
+    //   "x-rapidapi-key": "60cbaed862mshc93b76ac963e23fp1b69d0jsn822fdd45c3a1",
+    //   "x-rapidapi-host": "imdb236.p.rapidapi.com",
+    // },
     // method: "GET",
     // url: "https://imdb236.p.rapidapi.com/imdb/top250-movies",
     // params: { query: "break" },
