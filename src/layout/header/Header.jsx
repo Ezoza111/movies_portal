@@ -18,7 +18,6 @@ export const Header = ({ userName }) => {
         <FavoritesLink />
         {userName === null ? <SignInLink />: <div>{`${userName}.`.toLocaleUpperCase()}</div>}
         <SignUpLink />
-        
       </MainContainer>
     </StyledHeader>
   );

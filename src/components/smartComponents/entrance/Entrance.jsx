@@ -30,8 +30,9 @@ export const Entrance = ({ userName, changeUserStatus}) => {
       const user = JSON.parse(localStorage.getItem(nameValue));
       if (user[0].password === passValue) {
         console.log(`userStatus при клики на ышпт IN ${userName}`)
+        console.log(typeof nameValue);
         changeUserStatus(`${nameValue}`)
-        console.log(`userStatus при клики на ышпт IN ${userName}`)
+        console.log(`userStatus после клмка IN ${userName}`)
       } else {
         alert("Ой не правильный пороль");
       }
