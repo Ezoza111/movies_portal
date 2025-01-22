@@ -11,7 +11,7 @@ import {
 import { MyButton } from "../../stupidComponents/button/MyButton";
 import { buttonTheme } from "../../../styles/Theme";
 
-export const Register = () => {
+export const Register = ({changeUserStatus, userStatusOut}) => {
   const [open, setOpen] = React.useState(false);
   const [nameValue, setNameValue] = React.useState("");
   const [passValue, setPassValue] = React.useState("");
@@ -28,13 +28,10 @@ export const Register = () => {
       if (localStorage.getItem(nameValue)) {
         alert("Пользователь с таким именим уже существует ");
       } else {
-        localStorage.setItem(
-          `${nameValue}`,
-          JSON.stringify([{ name: nameValue, password: passValue }])
-        );
-        alert(
-          "Ура вы зарегистрировались нажмите на кнопку вход для входа в приложение"
-        );
+        localStorage.setItem(`${nameValue}`, JSON.stringify([{ name: nameValue, password: passValue }]));
+
+        userStatusOut? alert("Ура вы зарегистрировались нажмите на кнопку Sign In для входа в приложение"): alert('Нажмите кнопку Exit для входа под другим именим')
+        //changeUserStatus(false);
         handleClose();
       }
     };

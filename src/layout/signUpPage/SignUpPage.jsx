@@ -1,31 +1,17 @@
 import React from 'react'
-import { Form } from 'react-router-dom'
-import { MyButton } from '../../components/stupidComponents/button/MyButton'
 import { MainContainer } from '../../components/stupidComponents/container/MainContainer.styled'
-import { Button } from '@mui/material'
-import { theme } from '../../styles/Theme'
 import styled from 'styled-components'
+import { Register } from '../../components/smartComponents/registration/Registration'
+import { Entrance } from '../../components/smartComponents/entrance/Entrance'
+import { theme } from '../../styles/Theme'
 
-export const SignUpPage = ({changeUserStatus}) => {
-    const handleClickSignIn = () => {
-            
-    }
-    const handleClickSignUp= () => {
-        
-    }
+export const SignUpPage = ({userStatusOut, changeUserStatus}) => {
 
     return ( 
         <MainContainer direction='column' justify='center' align='center' gap='40px'>
-  
-         <StyledBtn  onClick={handleClickSignUp}>Sign Up</StyledBtn>
-         <StyledBtn  onClick={handleClickSignIn}>Sign Up</StyledBtn>
+          <Register changeUserStatus={changeUserStatus} userStatusOut={userStatusOut}/>
+          <Entrance changeUserStatus={changeUserStatus} userStatusOut={userStatusOut}/>
         </MainContainer>
-        // <Form>
-        //     <input
-        // <div><button onClick={()=>changeUserStatus(false)}>userAdd</button></div>
-        // <div>/////////////////</div>
-        // <div><button onClick={()=>changeUserStatus(true)}>userOut</button></div>
-        // </Form>
     )
 }
  

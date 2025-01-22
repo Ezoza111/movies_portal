@@ -5,7 +5,6 @@ import { Main } from "./layout/main/Main";
 import { FavoritesPage } from "./layout/favoritesPage/FavoritesPage";
 import { Routes, Route, Link } from "react-router-dom";
 import { RoutingComponent } from "./routingComponent/RoutingComponent";
-import { SignUp } from "./components/smartComponents/signUp/SignUp";
 import { SignUpPage } from "./layout/signUpPage/SignUpPage";
 import { useStepContext } from "@mui/material";
 
@@ -17,10 +16,10 @@ function App() {
     return (
     <>
       <Routes>
-        <Route path='/' element={<RoutingComponent userStatusOut={userStatusOut}/>}>
+        <Route path='/' element={<RoutingComponent userStatusOut={userStatusOut} changeUserStatus={changeUserStatus}/>}>
           <Route index element={<Main />} />
-          <Route path='/favorites' element={<FavoritesPage />} />
-          <Route path='/login' element={<SignUpPage changeUserStatus={changeUserStatus}/>} />
+          <Route path='/favorites' element={<FavoritesPage  />} />
+          <Route path='/login' element={<SignUpPage changeUserStatus={changeUserStatus} userStatusOut={userStatusOut}/>} />
         </Route>
       </Routes>
     </>

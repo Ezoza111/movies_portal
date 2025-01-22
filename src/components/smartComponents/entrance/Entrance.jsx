@@ -14,17 +14,11 @@ import { ThemeProvider } from "@emotion/react";
 import { MyButton } from "../../stupidComponents/button/MyButton";
 
 // вход
-export const Entrance = ({ loginStatusTrue, loginStatusFalse }) => {
+export const Entrance = ({ changeUserStatus, userStatusOut }) => {
   const [open, setOpen] = React.useState(false);
   const [nameValue, setNameValue] = React.useState("");
   const [passValue, setPassValue] = React.useState("");
-  const [userOutAccaunt, setUserOutAccaunt] = React.useState(true);
-  const signAccaunt = () => {
-    setUserOutAccaunt(false);
-  };
-  const outAccaunt = () => {
-    setUserOutAccaunt(true);
-  };
+  //const [userOutAccaunt, setUserOutAccaunt] = React.useState(true);
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -35,8 +29,7 @@ export const Entrance = ({ loginStatusTrue, loginStatusFalse }) => {
     const enterAkkaunt = () => {
       const user = JSON.parse(localStorage.getItem(nameValue));
       if (user[0].password === passValue) {
-        loginStatusFalse();
-        signAccaunt();
+        changeUserStatus(false)
       } else {
         alert("Ой не правильный пороль");
       }
@@ -45,11 +38,11 @@ export const Entrance = ({ loginStatusTrue, loginStatusFalse }) => {
       ? enterAkkaunt()
       : alert("Пользователь с таким именим не существует");
   };
-  const exitUserAccaunt = () => {
-    loginStatusTrue();
-    outAccaunt();
-  };
-  return userOutAccaunt ? (
+  // const exitUserAccaunt = () => {
+  //   loginStatusTrue();
+  //   outAccaunt();
+  // };
+  return userStatusOut ? (
     <ThemeProvider theme={buttonTheme}>
       <MyButton name='Sign In' functionClick={handleClickOpen} />
       <Dialog
@@ -98,9 +91,8 @@ export const Entrance = ({ loginStatusTrue, loginStatusFalse }) => {
   ) : (
     <ThemeProvider theme={buttonTheme}>
       <>
-        {" "}
         <Box component='h3'>{nameValue.toLocaleUpperCase()}</Box>
-        <MyButton name='Exit' functionClick={exitUserAccaunt} />
+        <MyButton name='Exit' functionClick={()=>changeUserStatus(true)} />
       </>
     </ThemeProvider>
   );
