@@ -9,17 +9,31 @@ import { SignUpPage } from "./layout/signUpPage/SignUpPage";
 import { useStepContext } from "@mui/material";
 
 function App() {
-  const [userStatusOut, setUserStatusOut] = React.useState(true)
-   const changeUserStatus = (props) => {
-      setUserStatusOut(props)
-   }
+  const [user, setUser] = React.useState({
+    userStatusOut: true,
+    userName: null,
+  });
+  const changeUserStatus = (props) =>{
+    const newUser = {...user};
+    if (typeof props === 'boolean') {
+      newUser.userStatusOut = props;
+      setUser(newUser)
+    }
+    if (typeof props === 'string') {
+      newUser.userName = props
+      setUser(newUser)
+    } 
+    newUser.userName = null
+    setUser(newUser)
+  };
+  
     return (
     <>
       <Routes>
-        <Route path='/' element={<RoutingComponent userStatusOut={userStatusOut} changeUserStatus={changeUserStatus}/>}>
+        <Route path='/' element={<RoutingComponent userName={user.userName} changeUserStatus={changeUserStatus}/>}>
           <Route index element={<Main />} />
           <Route path='/favorites' element={<FavoritesPage  />} />
-          <Route path='/login' element={<SignUpPage changeUserStatus={changeUserStatus} userStatusOut={userStatusOut}/>} />
+          <Route path='/login' element={<SignUpPage  userName={user.userName} changeUserStatus={changeUserStatus}/>} />
         </Route>
       </Routes>
     </>

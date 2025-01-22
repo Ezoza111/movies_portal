@@ -6,8 +6,9 @@ import { FavoritesLink } from "../../components/stupidComponents/favorites/Favor
 import { Entrance } from "../../components/smartComponents/entrance/Entrance";
 import SearchForm from "../../components/smartComponents/searchForm/SearchForm";
 import { SignUpLink } from "../signUpPage/SignUpLink";
+import { Link } from "react-router-dom";
 
-export const Header = ({userStatusOut, changeUserStatus}) => {
+export const Header = ({ userName, changeUserStatus}) => {
   const [loginStatus, setLoginStatus] = React.useState(true);
   const loginStatusFalse = () => {
     setLoginStatus(false);
@@ -22,14 +23,8 @@ export const Header = ({userStatusOut, changeUserStatus}) => {
         <Logo iconId={"logo"} />
         <SearchForm />
         <FavoritesLink />
-        <Entrance userStatusOut = {userStatusOut} changeUserStatus={changeUserStatus}/>
-{/*         
-        {loginStatus ? (
-          <SignUp loginStatusTrue={loginStatusTrue} loginStatusFalse={loginStatusFalse}/>
-        ) : (
-          ''
-        )} */}
-        {userStatusOut ? <SignUpLink /> : null}
+        {userName === null ?<Link to='/login'>Sign In</Link> : <div>{userName}</div>}
+        <SignUpLink />
         
       </MainContainer>
     </StyledHeader>

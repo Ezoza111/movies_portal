@@ -11,7 +11,7 @@ import {
 import { MyButton } from "../../stupidComponents/button/MyButton";
 import { buttonTheme } from "../../../styles/Theme";
 
-export const Register = ({changeUserStatus, userStatusOut}) => {
+export const Register = ({ userName, changeUserStatus}) => {
   const [open, setOpen] = React.useState(false);
   const [nameValue, setNameValue] = React.useState("");
   const [passValue, setPassValue] = React.useState("");
@@ -30,7 +30,7 @@ export const Register = ({changeUserStatus, userStatusOut}) => {
       } else {
         localStorage.setItem(`${nameValue}`, JSON.stringify([{ name: nameValue, password: passValue }]));
 
-        userStatusOut? alert("Ура вы зарегистрировались нажмите на кнопку Sign In для входа в приложение"): alert('Нажмите кнопку Exit для входа под другим именим')
+        userName === null ? alert("Ура вы зарегистрировались нажмите на кнопку Sign In для входа в приложение"): alert('Нажмите кнопку Exit для входа под другим именим')
         //changeUserStatus(false);
         handleClose();
       }

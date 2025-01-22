@@ -14,7 +14,7 @@ import { ThemeProvider } from "@emotion/react";
 import { MyButton } from "../../stupidComponents/button/MyButton";
 
 // вход
-export const Entrance = ({ changeUserStatus, userStatusOut }) => {
+export const Entrance = ({ userName, changeUserStatus}) => {
   const [open, setOpen] = React.useState(false);
   const [nameValue, setNameValue] = React.useState("");
   const [passValue, setPassValue] = React.useState("");
@@ -29,7 +29,9 @@ export const Entrance = ({ changeUserStatus, userStatusOut }) => {
     const enterAkkaunt = () => {
       const user = JSON.parse(localStorage.getItem(nameValue));
       if (user[0].password === passValue) {
-        changeUserStatus(false)
+        console.log(`userStatus при клики на ышпт IN ${userName}`)
+        changeUserStatus(`${nameValue}`)
+        console.log(`userStatus при клики на ышпт IN ${userName}`)
       } else {
         alert("Ой не правильный пороль");
       }
@@ -38,11 +40,7 @@ export const Entrance = ({ changeUserStatus, userStatusOut }) => {
       ? enterAkkaunt()
       : alert("Пользователь с таким именим не существует");
   };
-  // const exitUserAccaunt = () => {
-  //   loginStatusTrue();
-  //   outAccaunt();
-  // };
-  return userStatusOut ? (
+  return userName === null ? (
     <ThemeProvider theme={buttonTheme}>
       <MyButton name='Sign In' functionClick={handleClickOpen} />
       <Dialog
@@ -50,7 +48,10 @@ export const Entrance = ({ changeUserStatus, userStatusOut }) => {
         open={open}
         onClose={handleClose}
         aria-labelledby='enrtanceDialog'
-        PaperProps={{ component: "form", onSubmit: () => handleSignIn() }}>
+        PaperProps={{ component: "form", onSubmit: 
+          (event) => {
+          event.preventDefault();
+          handleSignIn() }}}>
         <DialogTitle id='enrtanceDialog' />
         <DialogContent>
           <DialogContentText>Entrance to see video</DialogContentText>
@@ -91,8 +92,7 @@ export const Entrance = ({ changeUserStatus, userStatusOut }) => {
   ) : (
     <ThemeProvider theme={buttonTheme}>
       <>
-        <Box component='h3'>{nameValue.toLocaleUpperCase()}</Box>
-        <MyButton name='Exit' functionClick={()=>changeUserStatus(true)} />
+        <MyButton name='Exit' functionClick={()=>changeUserStatus(null)} />
       </>
     </ThemeProvider>
   );

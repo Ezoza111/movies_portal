@@ -4,17 +4,18 @@ import styled from 'styled-components'
 import { Register } from '../../components/smartComponents/registration/Registration'
 import { Entrance } from '../../components/smartComponents/entrance/Entrance'
 import { theme } from '../../styles/Theme'
+import { useInRouterContext } from 'react-router-dom'
 
-export const SignUpPage = ({userStatusOut, changeUserStatus}) => {
+export const SignUpPage = ({userName, changeUserStatus}) => {
 
     return ( 
         <MainContainer direction='column' justify='center' align='center' gap='40px'>
-          <Register changeUserStatus={changeUserStatus} userStatusOut={userStatusOut}/>
-          <Entrance changeUserStatus={changeUserStatus} userStatusOut={userStatusOut}/>
+          <Register userName={userName} changeUserStatus={changeUserStatus}/>
+          <Entrance userName={userName} changeUserStatus={changeUserStatus}/>
+          {console.log(userName)}
         </MainContainer>
     )
 }
- 
 const StyledBtn = styled.button`
  width: 50%;
  height: 40px;
