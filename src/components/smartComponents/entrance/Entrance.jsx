@@ -18,7 +18,7 @@ export const Entrance = ({ userName, changeUserStatus}) => {
   const [open, setOpen] = React.useState(false);
   const [nameValue, setNameValue] = React.useState("");
   const [passValue, setPassValue] = React.useState("");
-  //const [userOutAccaunt, setUserOutAccaunt] = React.useState(true);
+  //const [userOutAccaunt, setUserOutAccaunt] = React.useState(true)
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -26,21 +26,21 @@ export const Entrance = ({ userName, changeUserStatus}) => {
     setOpen(false);
   };
   const handleSignIn = () => {
-    const enterAkkaunt = () => {
+    const enterAccount = () => {
       const user = JSON.parse(localStorage.getItem(nameValue));
       if (user[0].password === passValue) {
         console.log(`userStatus при клики на ышпт IN ${userName}`)
         console.log(typeof nameValue);
         changeUserStatus(`${nameValue}`)
-        console.log(`userStatus после клмка IN ${userName}`)
+        console.log(`userStatus после клика IN ${userName}`)
       } else {
-        alert("Ой не правильный пороль");
+        alert("Ой, не правильный пароль");
       }
     };
+    
     localStorage.getItem(nameValue)
-      ? enterAkkaunt()
-      : alert("Пользователь с таким именим не существует");
-  };
+      ? enterAccount()
+      : alert("Пользователя с таким именем не существует");
   return userName === null ? (
     <ThemeProvider theme={buttonTheme}>
       <MyButton name='Sign In' functionClick={handleClickOpen} />
@@ -55,11 +55,11 @@ export const Entrance = ({ userName, changeUserStatus}) => {
           handleSignIn() }}}>
         <DialogTitle id='enrtanceDialog' />
         <DialogContent>
-          <DialogContentText>Entrance to see video</DialogContentText>
+          <DialogContentText>Log in to see video</DialogContentText>
           <TextField
             autoFocus
             required
-            margin='dence'
+            margin='dense'
             id='name'
             value={nameValue}
             onChange={(event) => {
@@ -72,7 +72,7 @@ export const Entrance = ({ userName, changeUserStatus}) => {
           <TextField
             autoFocus
             required
-            margin='dence'
+            margin='dense'
             id='pass'
             value={passValue}
             onChange={(event) => {

@@ -2,60 +2,113 @@ import React, { useState, useEffect } from "react";
 import FilmCard from "../../stupidComponents/filmCard/FilmCard";
 import axios from "axios";
 import styled from "styled-components";
-import { v4 as uuidv4 } from 'uuid';
-// import { useLocalStorage } from "../customHooks/useLocalStorage";
+import SearchForm from "../searchForm/SearchForm";
+import { useDebounce } from "../customHooks/useDebounce";
+import { useLocalStorage } from "../customHooks/useLocalStorage";
 
 const FilmList = () => {
-  const [movies, setMovies] = useState([]);
+  const [movies, setMovies] = useLocalStorage([], "top250Movies");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [currentPage, setCurrentPage] = useState(1); // Состояние для текущей страницы
-  const moviesPerPage = 10; // Количество фильмов на одной странице
   const moviesArrayForExperement = [...movies];
-  const options = {
-    // method: "GET",
-    // url: "https://imdb236.p.rapidapi.com/imdb/top250-movies",
-    // params: { query: "break" },
-    // headers: {
-    //   "x-rapidapi-key": "60cbaed862mshc93b76ac963e23fp1b69d0jsn822fdd45c3a1",
-    //   "x-rapidapi-host": "imdb236.p.rapidapi.com",
-    // },
-    // method: "GET",
-    // url: "https://imdb236.p.rapidapi.com/imdb/top250-movies",
-    // params: { query: "break" },
-    // headers: {
-    //   "x-rapidapi-key": "462584b673mshc931f4a3e9c8cdbp11fe33jsn59ea027bfb32",
-    //   "x-rapidapi-host": "imdb236.p.rapidapi.com",
-    // },
+  const [currentPage, setCurrentPage] = useState(1);
+  const [searchQuery, setSearchQuery] = useState("");
+  const moviesPerPage = 10;
+
+  const debouncedQuery = useDebounce(searchQuery, 500);
+
+  const svetaApiKey = "60cbaed862mshc93b76ac963e23fp1b69d0jsn822fdd45c3a1";
+  const ezozaApiKey = "462584b673mshc931f4a3e9c8cdbp11fe33jsn59ea027bfb32";
+
+  const getTop250Options = {
+    method: "GET",
+    url: "https://imdb236.p.rapidapi.com/imdb/top250-movies",
+    headers: {
+      "x-rapidapi-key": ezozaApiKey,
+      "x-rapidapi-host": "imdb236.p.rapidapi.com",
+    },
+  };
+
+  // const getSearchOptions = {
+  //   method: "GET",
+  //   url: "https://imdb236.p.rapidapi.com/imdb/search",
+  //   params: { query: debouncedQuery },
+  //   headers: {
+  //     "x-rapidapi-key": svetaApiKey,
+  //     "x-rapidapi-host": "imdb236.p.rapidapi.com",
+  //   },
+  // };
+  const getSearchOptions = {
+    method: "GET",
+    url: "https://imdb236.p.rapidapi.com/imdb/search",
+    params: {
+      primaryTitle: searchQuery,
+      query: debouncedQuery,
+      type: "movie",
+      // genre: "Drama",
+      rows: "25",
+      sortField: "id",
+      sortOrder: "ASC",
+    },
+    headers: {
+      "x-rapidapi-key": ezozaApiKey,
+      "x-rapidapi-host": "imdb236.p.rapidapi.com",
+    },
   };
 
   useEffect(() => {
     const fetchMovies = async () => {
       setLoading(true);
       setError(null);
-      try {
-        const response = await axios.request(options);
-        setMovies(response.data);
-      } catch (error) {
-        setError("Error fetching movies");
-      } finally {
+      // Проверяем, есть ли фильмы в localStorage, если есть, сразу их используем
+      if (movies.length === 0) {
+        try {
+          const response = await axios.request(getTop250Options);
+          const fetchedMovies = response.data;
+          // Сохраняем фильмы в localStorage через хук
+          setMovies(fetchedMovies);
+        } catch (error) {
+          setError("Error fetching movies");
+        } finally {
+          setLoading(false);
+        }
+      } else {
+        // Если фильмы уже есть в состоянии, прекращаем загрузку
         setLoading(false);
       }
     };
 
     fetchMovies();
-  }, []);
+  }, [movies, setMovies]);
 
-  // Вычисляем фильмы для текущей страницы
+  useEffect(() => {
+    const fetchSearchResults = async () => {
+      if (debouncedQuery) {
+        setLoading(true);
+        setError(null);
+        try {
+          const response = await axios.request(getSearchOptions);
+          setMovies(response.data); // Только для поиска обновляем состояние, без записи в localStorage
+        } catch (error) {
+          setError("Error fetching search results");
+        } finally {
+          setLoading(false);
+        }
+      }
+    };
+
+    fetchSearchResults();
+  }, [debouncedQuery]); // Поиск выполняется, когда меняется debouncedQuery
+
   const indexOfLastMovie = currentPage * moviesPerPage;
   const indexOfFirstMovie = indexOfLastMovie - moviesPerPage;
+  const numOfPages = Math.ceil(movies.length / moviesPerPage);
   const currentMovies = Array.isArray(movies)
     ? movies.slice(indexOfFirstMovie, indexOfLastMovie)
     : [];
 
-  // Функции для переключения страниц
   const handleNextPage = () => {
-    if (currentPage < Math.ceil(movies.length / moviesPerPage)) {
+    if (currentPage < numOfPages) {
       setCurrentPage((prevPage) => prevPage + 1);
     }
   };
@@ -66,43 +119,50 @@ const FilmList = () => {
     }
   };
 
+  const handleSearchInput = (searchTerm) => {
+    setSearchQuery(searchTerm);
+    setCurrentPage(1);
+  };
+
   if (loading) return <p>Loading...</p>;
   if (error) return <p>{error}</p>;
 
   return (
     <>
-    <StyledFilmListContainer>
-      <h1>Top 250 TV Shows</h1>
-      <StyledFilmList className='film-list'>
-        {currentMovies.length > 0 ? (
-          currentMovies.map((movie) => (
-            <FilmCard
-              key={uuidv4()}
-              movieId={movie.id}
-              title={movie.primaryTitle}
-              year={movie.startYear}
-              rank={movie.averageRating}
-              image={movie.primaryImage}
-              runtimeMinutes={movie.runtimeMinutes}
-              description={movie.description}
-            />
-          ))
-        ) : (
-          <p>No movies available</p>
-        )}
-      </StyledFilmList>
+      <StyledSearchFormContainer>
+        <SearchForm onSearch={handleSearchInput} />
+      </StyledSearchFormContainer>
 
-        {/* Пагинация */}
+      <StyledFilmListContainer>
+        <StyledFilmList className='film-list'>
+          {currentMovies.length > 0 ? (
+            currentMovies.map((movie) => (
+              <FilmCard
+                key={movie.id}
+                movieId={movie.id}
+                title={movie.primaryTitle}
+                year={movie.startYear}
+                rank={movie.averageRating}
+                image={movie.primaryImage}
+                runtimeMinutes={movie.runtimeMinutes}
+                description={movie.description}
+              />
+            ))
+          ) : (
+            <p>No movies available</p>
+          )}
+        </StyledFilmList>
+
         <StyledPagination>
           <button onClick={handlePrevPage} disabled={currentPage === 1}>
             Prev
           </button>
           <span>
-            Page {currentPage} from {Math.ceil(movies.length / moviesPerPage)}
+            Page {currentPage} from {numOfPages}
           </span>
           <button
             onClick={handleNextPage}
-            disabled={currentPage === Math.ceil(movies.length / moviesPerPage)}>
+            disabled={currentPage === numOfPages}>
             Next
           </button>
         </StyledPagination>
@@ -117,11 +177,19 @@ const StyledFilmListContainer = styled.div`
   gap: 20px;
 `;
 
+const StyledSearchFormContainer = styled.div`
+  display: flex;
+  margin-bottom: 30px;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+`;
+
 const StyledFilmList = styled.div`
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 20px;
-  justify-content: space-between;
 `;
 
 const StyledPagination = styled.div`

@@ -37,6 +37,7 @@ const FilmModal = ({ open, handleClose, title, year, image, rank, description, r
         rank,
         description,
         runtimeMinutes,
+        movieId
       };
       setFavorites([...favorites, newFavorite]);
     }
