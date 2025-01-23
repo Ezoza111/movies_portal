@@ -14,7 +14,7 @@ export const Header = ({ userName }) => {
     <StyledHeader className='header'>
       <MainContainer direction={"row"} justify={"space-between"} align={"center"}>
         <Logo iconId={"logo"} />
-        <SearchForm />
+        {/* <SearchForm /> */}
         <FavoritesLink />
         {userName === null ? <SignInLink />: <div>{`${userName}.`.toLocaleUpperCase()}</div>}
         <SignUpLink />
