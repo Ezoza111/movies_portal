@@ -5,6 +5,8 @@ import styled from "styled-components";
 import SearchForm from "../searchForm/SearchForm";
 import { useDebounce } from "../customHooks/useDebounce";
 import { useLocalStorage } from "../customHooks/useLocalStorage";
+import { ErrorFallback } from "../errorFallback/ErrorFallback";
+import { withErrorBoundary } from "react-error-boundary";
 
 const FilmList = () => {
   const [movies, setMovies] = useLocalStorage([], "top250Movies");
@@ -205,4 +207,4 @@ const StyledPagination = styled.div`
   }
 `;
 
-export default FilmList;
+export default withErrorBoundary (FilmList, {FallbackComponent: (ErrorFallback)});
