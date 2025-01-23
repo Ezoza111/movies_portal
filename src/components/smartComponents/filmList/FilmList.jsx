@@ -7,12 +7,13 @@ import { useDebounce } from "../customHooks/useDebounce";
 import { useLocalStorage } from "../customHooks/useLocalStorage";
 import { ErrorFallback } from "../errorFallback/ErrorFallback";
 import { withErrorBoundary } from "react-error-boundary";
+import CustomLoader from "../../stupidComponents/customLoader/CustomLoader";
 
 const FilmList = ({userName}) => {
   const [movies, setMovies] = useLocalStorage([], "top250Movies");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const moviesArrayForExperement = [...movies];
+  // const moviesArrayForExperement = [...movies];
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState("");
   const moviesPerPage = 10;
@@ -26,7 +27,7 @@ const FilmList = ({userName}) => {
     method: "GET",
     url: "https://imdb236.p.rapidapi.com/imdb/top250-movies",
     headers: {
-      "x-rapidapi-key": ezozaApiKey,
+      "x-rapidapi-key": svetaApiKey,
       "x-rapidapi-host": "imdb236.p.rapidapi.com",
     },
   };
@@ -53,7 +54,7 @@ const FilmList = ({userName}) => {
       sortOrder: "ASC",
     },
     headers: {
-      "x-rapidapi-key": ezozaApiKey,
+      "x-rapidapi-key": svetaApiKey,
       "x-rapidapi-host": "imdb236.p.rapidapi.com",
     },
   };
@@ -83,24 +84,24 @@ const FilmList = ({userName}) => {
     fetchMovies();
   }, [movies, setMovies]);
 
-  useEffect(() => {
-    const fetchSearchResults = async () => {
-      if (debouncedQuery) {
-        setLoading(true);
-        setError(null);
-        try {
-          const response = await axios.request(getSearchOptions);
-          setMovies(response.data); // Только для поиска обновляем состояние, без записи в localStorage
-        } catch (error) {
-          setError("Error fetching search results");
-        } finally {
-          setLoading(false);
-        }
-      }
-    };
+  // useEffect(() => {
+  //   const fetchSearchResults = async () => {
+  //     if (debouncedQuery) {
+  //       setLoading(true);
+  //       setError(null);
+  //       try {
+  //         const response = await axios.request(getSearchOptions);
+  //         setMovies(response.data); // Только для поиска обновляем состояние, без записи в localStorage
+  //       } catch (error) {
+  //         setError("Error fetching search results");
+  //       } finally {
+  //         setLoading(false);
+  //       }
+  //     }
+  //   };
 
-    fetchSearchResults();
-  }, [debouncedQuery]); // Поиск выполняется, когда меняется debouncedQuery
+  //   fetchSearchResults();
+  // }, [debouncedQuery]); // Поиск выполняется, когда меняется debouncedQuery
 
   const indexOfLastMovie = currentPage * moviesPerPage;
   const indexOfFirstMovie = indexOfLastMovie - moviesPerPage;
@@ -126,7 +127,7 @@ const FilmList = ({userName}) => {
     setCurrentPage(1);
   };
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <CustomLoader />;
   if (error) return <p>{error}</p>;
 
   return (
@@ -138,7 +139,7 @@ const FilmList = ({userName}) => {
       <StyledFilmListContainer>
         <StyledFilmList className='film-list'>
           {currentMovies.length > 0 ? (
-            moviesArrayForExperement.map((movie) => (
+            currentMovies.map((movie) => (
               <FilmCard
                 key={movie.id}
                 movieId={movie.id}
