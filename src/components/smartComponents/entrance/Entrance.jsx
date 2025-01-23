@@ -36,11 +36,11 @@ export const Entrance = ({ userName, changeUserStatus}) => {
       } else {
         alert("Ой, не правильный пароль");
       }
-    };
-    
+    }
     localStorage.getItem(nameValue)
       ? enterAccount()
       : alert("Пользователя с таким именем не существует");
+  }
   return userName === null ? (
     <ThemeProvider theme={buttonTheme}>
       <MyButton name='Sign In' functionClick={handleClickOpen} />
@@ -49,6 +49,7 @@ export const Entrance = ({ userName, changeUserStatus}) => {
         open={open}
         onClose={handleClose}
         aria-labelledby='enrtanceDialog'
+
         PaperProps={{ component: "form", onSubmit: 
           (event) => {
           event.preventDefault();
