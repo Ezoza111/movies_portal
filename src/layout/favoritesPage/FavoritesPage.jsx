@@ -11,7 +11,7 @@ export const FavoritesPage = ({userName}) => {
   const [favorites, setFavorites] = useLocalStorage([], "favorites");
 
   return (
-    <MainContainer>
+    <MainContainer className="main">
       {userName === null ?  
       <div>Для просмотра фильмов перейдите по сыылке  <SignUpLink /> для регистрации или входа</div> : 
       <StyledFilmListContainer>

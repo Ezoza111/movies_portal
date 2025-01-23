@@ -13,6 +13,7 @@ body {
   font-family: 'Roboto', sans-serif;
   margin: 0 auto;
   min-height: 100vh;
+  height: 100%;
   max-width: 1280px;
   display: flex;
   flex-direction: column;
@@ -21,6 +22,12 @@ body {
 }
 main {
   height: 100%;
+}
+main.dark {
+  background-color: ${theme.colors.primary};
+}
+.main.light {
+  background-color: ${theme.colors.primaryLight};
 }
 a {
     text-decoration: none;

@@ -9,7 +9,7 @@ import { useInRouterContext } from 'react-router-dom'
 export const SignUpPage = ({userName, changeUserStatus}) => {
 
     return ( 
-        <MainContainer direction='column' justify='center' align='center' gap='40px'>
+        <MainContainer direction='column' justify='center' align='center' gap='40px' className='main'>
           <Register userName={userName} changeUserStatus={changeUserStatus}/>
           <Entrance userName={userName} changeUserStatus={changeUserStatus}/>
           {console.log(userName)}

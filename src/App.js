@@ -16,6 +16,7 @@ function App() {
     userStatusOut: true,
     userName: null,
   });
+
   const changeUserStatus = (props) =>{
     const newUser = {...user};
     if (typeof props === 'boolean') {
