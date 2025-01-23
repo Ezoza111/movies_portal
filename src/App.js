@@ -7,6 +7,9 @@ import { Routes, Route, Link } from "react-router-dom";
 import { RoutingComponent } from "./routingComponent/RoutingComponent";
 import { SignUpPage } from "./layout/signUpPage/SignUpPage";
 import { useStepContext } from "@mui/material";
+import { ErrorBoundary, withErrorBoundary } from "react-error-boundary";
+import { ErrorFallback } from "./components/smartComponents/errorFallback/ErrorFallback";
+
 
 function App() {
   const [user, setUser] = React.useState({
@@ -31,7 +34,7 @@ function App() {
   };
   
     return (
-    <>
+    <ErrorBoundary FallbackComponent={ErrorFallback}>
       <Routes>
         <Route path='/' element={<RoutingComponent userName={user.userName} changeUserStatus={changeUserStatus}/>}>
           <Route index element={<Main />} />
@@ -39,7 +42,7 @@ function App() {
           <Route path='/login' element={<SignUpPage  userName={user.userName} changeUserStatus={changeUserStatus}/>} />
         </Route>
       </Routes>
-    </>
+    </ErrorBoundary>
   );
 }
 
