@@ -138,7 +138,7 @@ const FilmList = ({userName}) => {
       <StyledFilmListContainer>
         <StyledFilmList className='film-list'>
           {currentMovies.length > 0 ? (
-            currentMovies.map((movie) => (
+            moviesArrayForExperement.map((movie) => (
               <FilmCard
                 key={movie.id}
                 movieId={movie.id}
@@ -148,7 +148,7 @@ const FilmList = ({userName}) => {
                 image={movie.primaryImage}
                 runtimeMinutes={movie.runtimeMinutes}
                 description={movie.description}
-                username={userName}
+                userName={userName}
               />
             ))
           ) : (
