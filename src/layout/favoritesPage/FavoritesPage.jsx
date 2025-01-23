@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import styled from "styled-components";
 import { MainContainer } from "../../components/stupidComponents/container/MainContainer.styled";
 import FilmCard from "../../components/stupidComponents/filmCard/FilmCard";
@@ -10,10 +10,21 @@ export const FavoritesPage = ({userName}) => {
   // Используем кастомный хук useLocalStorage для работы с localStorage
   const [favorites, setFavorites] = useLocalStorage([], "favorites");
 
+  useEffect(() => {
+    // Загружаем актуальные данные при каждом монтировании страницы
+    const storedFavorites = JSON.parse(localStorage.getItem("favorites")) || [];
+    setFavorites(storedFavorites);
+  }, [setFavorites]);
+
+  const updateFavorites = (updatedFavorites) => {
+    setFavorites(updatedFavorites); // Обновляем избранное
+    localStorage.setItem("favorites", JSON.stringify(updatedFavorites)); // Сохраняем в localStorage
+  };
+
   return (
     <MainContainer>
       {userName === null ?  
-      <div>Для просмотра фильмов перейдите по сыылке  <SignUpLink /> для регистрации или входа</div> : 
+      <div>Для просмотра фильмов перейдите по ссылке  <SignUpLink /> для регистрации или входа</div> : 
       <StyledFilmListContainer>
         <h1>Favorite movies</h1>
         <StyledFilmList>
@@ -27,6 +38,7 @@ export const FavoritesPage = ({userName}) => {
                 image={film.image}
                 runtimeMinutes={film.runtimeMinutes}
                 description={film.description}
+                updateFavorites={updateFavorites}
               />
             ))
           ) : (
@@ -48,5 +60,5 @@ const StyledFilmList = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
-  justify-content: space-between;
+  justify-content: center;
 `;
