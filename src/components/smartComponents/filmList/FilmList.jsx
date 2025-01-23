@@ -8,9 +8,11 @@ import { useLocalStorage } from "../customHooks/useLocalStorage";
 import { ErrorFallback } from "../errorFallback/ErrorFallback";
 import { withErrorBoundary } from "react-error-boundary";
 import CustomLoader from "../../stupidComponents/customLoader/CustomLoader";
+import { v4 as uuidv4 } from "uuid";
 
-const FilmList = ({userName}) => {
+const FilmList = ({ userName }) => {
   const [movies, setMovies] = useLocalStorage([], "top250Movies");
+  const [searchResults, setSearchResults] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   // const moviesArrayForExperement = [...movies];
@@ -43,21 +45,33 @@ const FilmList = ({userName}) => {
   // };
   const getSearchOptions = {
     method: "GET",
-    url: "https://imdb236.p.rapidapi.com/imdb/search",
+    url: "https://imdb236.p.rapidapi.com/imdb/autocomplete",
     params: {
-      primaryTitle: searchQuery,
       query: debouncedQuery,
-      type: "movie",
-      // genre: "Drama",
-      rows: "25",
-      sortField: "id",
-      sortOrder: "ASC",
     },
     headers: {
       "x-rapidapi-key": svetaApiKey,
       "x-rapidapi-host": "imdb236.p.rapidapi.com",
     },
   };
+  // const getSearchOptions = {
+  //   method: "GET",
+  //   url: "https://imdb236.p.rapidapi.com/imdb/search",
+  //   params: {
+  //     primaryTitle: searchQuery,
+  //     query: debouncedQuery,
+  //     type: "movie",
+  //     // genre: "Drama",
+  //     // startYear: '2022',
+  //     rows: "25",
+  //     sortField: "id",
+  //     sortOrder: "ASC",
+  //   },
+  //   headers: {
+  //     "x-rapidapi-key": svetaApiKey,
+  //     "x-rapidapi-host": "imdb236.p.rapidapi.com",
+  //   },
+  // };
 
   useEffect(() => {
     const fetchMovies = async () => {
@@ -84,30 +98,42 @@ const FilmList = ({userName}) => {
     fetchMovies();
   }, [movies, setMovies]);
 
-  // useEffect(() => {
-  //   const fetchSearchResults = async () => {
-  //     if (debouncedQuery) {
-  //       setLoading(true);
-  //       setError(null);
-  //       try {
-  //         const response = await axios.request(getSearchOptions);
-  //         setMovies(response.data); // Только для поиска обновляем состояние, без записи в localStorage
-  //       } catch (error) {
-  //         setError("Error fetching search results");
-  //       } finally {
-  //         setLoading(false);
-  //       }
-  //     }
-  //   };
+  useEffect(() => {
+    const fetchSearchResults = async () => {
+      if (debouncedQuery) {
+        setLoading(true);
+        setError(null);
+        try {
+          const response = await axios.request(getSearchOptions);
+          const results = response.data;
+          if (results.length > 0) {
+            setSearchResults(results); // Обновляем временное состояние для поиска
+          } else {
+            setSearchResults([]);
+          }
+        } catch (error) {
+          setError("Error fetching search results");
+        } finally {
+          setLoading(false);
+        }
+      } else {
+        setSearchResults([]); // Если поиск отменен (пустой запрос), очищаем результаты
+      }
+    };
 
-  //   fetchSearchResults();
-  // }, [debouncedQuery]); // Поиск выполняется, когда меняется debouncedQuery
+    fetchSearchResults();
+  }, [debouncedQuery]); // Поиск выполняется, когда меняется debouncedQuery
 
   const indexOfLastMovie = currentPage * moviesPerPage;
   const indexOfFirstMovie = indexOfLastMovie - moviesPerPage;
   const numOfPages = Math.ceil(movies.length / moviesPerPage);
-  const currentMovies = Array.isArray(movies)
-    ? movies.slice(indexOfFirstMovie, indexOfLastMovie)
+  const currentMovies =
+    Array.isArray(searchResults) && searchResults.length > 0
+      ? searchResults
+      : movies;
+
+  const displayedMovies = Array.isArray(currentMovies)
+    ? currentMovies.slice(indexOfFirstMovie, indexOfLastMovie)
     : [];
 
   const handleNextPage = () => {
@@ -127,21 +153,26 @@ const FilmList = ({userName}) => {
     setCurrentPage(1);
   };
 
-  if (loading) return <CustomLoader />;
-  if (error) return <p>{error}</p>;
-
   return (
     <>
       <StyledSearchFormContainer>
         <SearchForm onSearch={handleSearchInput} />
       </StyledSearchFormContainer>
 
+      {error && <p>{error}</p>}
+
       <StyledFilmListContainer>
+        {loading && (
+          <StyledLoaderOverlay>
+            <CustomLoader />
+          </StyledLoaderOverlay>
+        )}
+
         <StyledFilmList className='film-list'>
-          {currentMovies.length > 0 ? (
-            currentMovies.map((movie) => (
+          {displayedMovies.length > 0 ? (
+            displayedMovies.map((movie) => (
               <FilmCard
-                key={movie.id}
+                key={uuidv4()}
                 movieId={movie.id}
                 title={movie.primaryTitle}
                 year={movie.startYear}
@@ -209,4 +240,19 @@ const StyledPagination = styled.div`
   }
 `;
 
-export default withErrorBoundary (FilmList, {FallbackComponent: (ErrorFallback)});
+const StyledLoaderOverlay = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.7);
+  z-index: 10;
+`;
+
+export default withErrorBoundary(FilmList, {
+  FallbackComponent: ErrorFallback,
+});
