@@ -9,10 +9,15 @@ import CalendarIcon from '@mui/icons-material/CalendarToday';
 import TimeIcon from '@mui/icons-material/AccessTime';
 import { theme } from '../../../styles/Theme';
 import { useLocalStorage } from '../../smartComponents/customHooks/useLocalStorage';
+import { SignUpLink } from '../../../layout/signUpPage/SignUpLink';
+import { useNavigate } from 'react-router-dom';
 
-const FilmModal = ({ open, handleClose, title, year, image, rank, description, runtimeMinutes, movieId }) => {
+const FilmModal = ({ open, handleClose, title, year, image, rank, description, runtimeMinutes, movieId, userName }) => {
   const [favorites, setFavorites] = useLocalStorage([], "favorites");
   const [favorite, setFavorite] = useState(false);
+  //перенаправление на страницу регистрации
+  const navigate = useNavigate();
+  const redirectSignUp = () => navigate('/login');
 
   // Проверяем, есть ли фильм в избранном при загрузке модалки
   useEffect(() => {
@@ -75,7 +80,7 @@ const FilmModal = ({ open, handleClose, title, year, image, rank, description, r
             {/* Кнопка избранного */}
             <IconButton
               className="icon-button"
-              onClick={toggleFavorite}
+              onClick={userName === null? redirectSignUp : toggleFavorite}
               color="primary"
               aria-label="add to favorites"
               style={{ color: '#ffea00' }}

@@ -2,11 +2,11 @@ import styled from "styled-components";
 import { MainContainer } from "../../components/stupidComponents/container/MainContainer.styled";
 import FilmList from "../../components/smartComponents/filmList/FilmList";
 
-export const Main = () => {
+export const Main = ({userName}) => {
   return (
     <StyledMain className='main'>
       <MainContainer direction={"column"}>
-        <FilmList />
+        <FilmList userName={userName}/>
       </MainContainer>
     </StyledMain>
   );

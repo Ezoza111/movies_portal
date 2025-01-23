@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { theme } from '../../../styles/Theme';
 import FilmModal from './FilmModal';
 
-const FilmCard = ({ title, year, rank, image, description, runtimeMinutes, movieId }) => {
+const FilmCard = ({ title, year, rank, image, description, runtimeMinutes, movieId, userName}) => {
   const [open, setOpen] = useState(false);
 
   // Открытие и закрытие модалки
@@ -32,6 +32,7 @@ const FilmCard = ({ title, year, rank, image, description, runtimeMinutes, movie
         rank={rank}
         description={description}
         runtimeMinutes={runtimeMinutes}
+        userName={userName}
       />
     </>
   );

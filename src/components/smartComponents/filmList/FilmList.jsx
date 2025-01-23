@@ -8,7 +8,7 @@ import { useLocalStorage } from "../customHooks/useLocalStorage";
 import { ErrorFallback } from "../errorFallback/ErrorFallback";
 import { withErrorBoundary } from "react-error-boundary";
 
-const FilmList = () => {
+const FilmList = ({userName}) => {
   const [movies, setMovies] = useLocalStorage([], "top250Movies");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -148,6 +148,7 @@ const FilmList = () => {
                 image={movie.primaryImage}
                 runtimeMinutes={movie.runtimeMinutes}
                 description={movie.description}
+                username={userName}
               />
             ))
           ) : (
