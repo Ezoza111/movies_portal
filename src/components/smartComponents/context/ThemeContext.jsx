@@ -1,4 +1,4 @@
-import { createContext, useContext } from "react";
+import React, { createContext, useContext } from "react";
 import PropTypes from 'prop-types'
 
 export const ThemeContext = createContext(undefined);
@@ -12,8 +12,8 @@ export const useTheme = () => {
 }
 
 
-export const ThemeProvider = ({children}) => {
-    const [isDark, setIsDark] = useState(false);
+export const ThemeContextProvider = ({children}) => {
+    const [isDark, setIsDark] = React.useState(false);
 
     const toggleTheme = () => {
         setIsDark((prev) => !prev)
@@ -27,7 +27,4 @@ export const ThemeProvider = ({children}) => {
 ThemeContext.propstype = {
   isDark: PropTypes.bool,
   toggleTheme: PropTypes.func
-}
-ThemeProvider.propstype = {
-  children: PropTypes.element
 }

@@ -6,6 +6,7 @@ import { GLobalStyles } from "./styles/Global.styled";
 import { ThemeProvider } from "styled-components";
 import { theme } from "./styles/Theme";
 import { BrowserRouter } from "react-router-dom";
+import { ThemeContextProvider } from "./components/smartComponents/context/ThemeContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -13,7 +14,9 @@ root.render(
     <BrowserRouter>
       <GLobalStyles />
       <ThemeProvider theme={theme}>
-        <App />
+        <ThemeContextProvider>
+          <App />
+        </ThemeContextProvider>
       </ThemeProvider>
     </BrowserRouter>
   </React.StrictMode>

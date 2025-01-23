@@ -1,16 +1,15 @@
-import {Link, Outlet} from 'react-router-dom'
+import {Outlet} from 'react-router-dom'
 import { Header } from '../layout/header/Header'
-import { useState } from 'react'
+import { useTheme } from 'styled-components'
 
 export const RoutingComponent = ({ userName, changeUserStatus}) => {
-  const [isDark, setIsDark] = useState(false);
-
+  const {isDark, toogleTheme} = useTheme()
   return (
-    <div className={`mainStyles ${isDark ? 'dark' : 'light'}`} isDark = {isDark}>
-     <Header  userName={userName} changeUserStatus={changeUserStatus} isDark = {isDark}/>
+    <>
+     <Header  userName={userName} changeUserStatus={changeUserStatus}/>
      <main className={`main ${isDark ? 'dark' : 'light'}`}>
         <Outlet />
      </main>
-    </div>
+    </>
   )
 }
