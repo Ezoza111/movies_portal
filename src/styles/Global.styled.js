@@ -23,7 +23,7 @@ body {
 main {
   height: 100%;
 }
-main.dark {
+.main.dark {
   background-color: ${theme.colors.primary};
 }
 .main.light {

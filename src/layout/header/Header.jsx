@@ -9,15 +9,19 @@ import { Link } from "react-router-dom";
 import { FavoritesLink } from "../favoritesPage/FavoritesLink";
 import { SignInLink } from "../signUpPage/SignInLink";
 import { theme } from "../../styles/Theme";
+import { useTheme } from "../../components/smartComponents/context/ThemeContext";
+import { ThemeIcon } from "../../components/stupidComponents/icon/ThemeIcon";
 
-export const Header = ({ userName, isDark}) => {
+export const Header = ({ userName }) => {
+  const {isDark} = useTheme();
   return (
     <StyledHeader className={`header ${isDark ? 'dark' : 'light'}`}>
       <MainContainer direction={"row"} justify={"space-between"} align={"center"}>
         <Logo iconId={"logo"} />
+        <ThemeIcon />
         <SearchForm />
         <FavoritesLink />
-        {userName === null ? <SignInLink />: <div>{`${userName}.`.toLocaleUpperCase()}</div>}
+        {userName === null ? <SignInLink />: <div>{`${userName}`.toLocaleUpperCase()}</div>}
         <SignUpLink />
       </MainContainer>
     </StyledHeader>
