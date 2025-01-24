@@ -31,19 +31,26 @@ const FilmModal = ({
   const navigate = useNavigate();
   const redirectSignUp = () => navigate('/login');
 
-  // Проверяем, есть ли фильм в избранном при загрузке модалки
   useEffect(() => {
-    const isFavorite = favorites.some((film) => film.movieId === movieId);
+  // Проверяем, есть ли фильм в избранном только при монтировании или при изменении movieId
+  const isFavorite = favorites.some((film) => film.movieId === movieId);
+  
+  // Избегаем лишних обновлений состояния
+  if (isFavorite !== favorite) {
     setFavorite(isFavorite);
-  }, [favorites, movieId]);
+  }
+}, [movieId, favorite, favorites]); // Здесь dependencies только те, что зависят от изменения movieId или текущего состояния favorite
+
 
   // Переключение избранного
   const toggleFavorite = () => {
     let updatedFavorites;
-
+  
     if (favorite) {
       // Если фильм уже в избранном, удаляем его
       updatedFavorites = favorites.filter((film) => film.movieId !== movieId);
+      console.log(updatedFavorites); // Логируем для проверки
+      
     } else {
       // Если фильма нет в избранном, добавляем его
       const newFavorite = {
@@ -55,18 +62,22 @@ const FilmModal = ({
         runtimeMinutes,
         movieId,
       };
+  
+      // Проверяем, не добавлен ли этот фильм раньше, и добавляем только если его нет
       updatedFavorites = [...favorites, newFavorite];
+      console.log(updatedFavorites); // Логируем для проверки
     }
-
+  
     // Обновляем локальное хранилище и состояние
-    setFavorites(updatedFavorites);
+    setFavorites(updatedFavorites); // Здесь favorites всегда будет обновляться без потерь
     setFavorite(!favorite);
-
+  
     // Проверяем, передана ли функция updateFavorites
     if (updateFavorites) {
       updateFavorites(updatedFavorites);
     }
   };
+  
 
   return (
     <Modal

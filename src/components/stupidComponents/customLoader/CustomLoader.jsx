@@ -41,7 +41,7 @@ const CustomLoader = () => {
   return (
     <LoaderContainer>
       <div style={{ textAlign: "center" }}>
-        <AnimatedCircle />
+        <AnimatedCircle color="unset" />
         {/* <LoaderText>Loading, please wait...</LoaderText> */}
       </div>
     </LoaderContainer>
