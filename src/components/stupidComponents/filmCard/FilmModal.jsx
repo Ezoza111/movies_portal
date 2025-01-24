@@ -12,27 +12,45 @@ import { useLocalStorage } from '../../smartComponents/customHooks/useLocalStora
 import { SignUpLink } from '../../../layout/signUpPage/SignUpLink';
 import { useNavigate } from 'react-router-dom';
 
-const FilmModal = ({ open, handleClose, title, year, image, rank, description, runtimeMinutes, movieId, userName }) => {
+const FilmModal = ({
+  open,
+  handleClose,
+  title,
+  year,
+  image,
+  rank,
+  description,
+  runtimeMinutes,
+  movieId, 
+  userName,
+  updateFavorites,
+}) => {
   const [favorites, setFavorites] = useLocalStorage([], "favorites");
   const [favorite, setFavorite] = useState(false);
   //перенаправление на страницу регистрации
   const navigate = useNavigate();
   const redirectSignUp = () => navigate('/login');
 
-  // Проверяем, есть ли фильм в избранном при загрузке модалки
   useEffect(() => {
-    const isFavorite = favorites.some(film => film.movieId === movieId);
+  // Проверяем, есть ли фильм в избранном только при монтировании или при изменении movieId
+  const isFavorite = favorites.some((film) => film.movieId === movieId);
+  
+  // Избегаем лишних обновлений состояния
+  if (isFavorite !== favorite) {
     setFavorite(isFavorite);
-  }, [movieId]);
+  }
+}, [movieId, favorite, favorites]); // Здесь dependencies только те, что зависят от изменения movieId или текущего состояния favorite
+
 
   // Переключение избранного
   const toggleFavorite = () => {
-    const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
-
+    let updatedFavorites;
+  
     if (favorite) {
       // Если фильм уже в избранном, удаляем его
-      const updatedFavorites = favorites.filter(film => film.movieId !== movieId);
-      setFavorites(updatedFavorites);
+      updatedFavorites = favorites.filter((film) => film.movieId !== movieId);
+      console.log(updatedFavorites); // Логируем для проверки
+      
     } else {
       // Если фильма нет в избранном, добавляем его
       const newFavorite = {
@@ -42,36 +60,46 @@ const FilmModal = ({ open, handleClose, title, year, image, rank, description, r
         rank,
         description,
         runtimeMinutes,
-        movieId
+        movieId,
       };
-      setFavorites([...favorites, newFavorite]);
+  
+      // Проверяем, не добавлен ли этот фильм раньше, и добавляем только если его нет
+      updatedFavorites = [...favorites, newFavorite];
+      console.log(updatedFavorites); // Логируем для проверки
     }
-
+  
+    // Обновляем локальное хранилище и состояние
+    setFavorites(updatedFavorites); // Здесь favorites всегда будет обновляться без потерь
     setFavorite(!favorite);
+  
+    // Проверяем, передана ли функция updateFavorites
+    if (updateFavorites) {
+      updateFavorites(updatedFavorites);
+    }
   };
+  
 
   return (
     <Modal
       open={open}
       onClose={handleClose}
-      aria-labelledby="movie-title"
-      aria-describedby="movie-description"
-    >
+      aria-labelledby='movie-title'
+      aria-describedby='movie-description'>
       <ModalBox>
-        <div className="modal-box-container">
-          <img loading="lazy" src={image} alt={title} />
-          <div className="modal-content">
-            <h2 id="movie-title">{title}</h2>
-            <div className="info-wrap">
-              <div className="icon-text-wrap">
+        <div className='modal-box-container'>
+          <img loading='lazy' src={image} alt={title} />
+          <div className='modal-content'>
+            <h2 id='movie-title'>{title}</h2>
+            <div className='info-wrap'>
+              <div className='icon-text-wrap'>
                 <CalendarIcon />
                 <p>{year}</p>
               </div>
-              <div className="icon-text-wrap">
+              <div className='icon-text-wrap'>
                 <TimeIcon />
                 <p>{runtimeMinutes} min</p>
               </div>
-              <div className="icon-text-wrap">
+              <div className='icon-text-wrap'>
                 <StarIcon />
                 <p>{rank}</p>
               </div>
@@ -80,7 +108,7 @@ const FilmModal = ({ open, handleClose, title, year, image, rank, description, r
             {/* Кнопка избранного */}
             <IconButton
               className="icon-button"
-              onClick={userName === null? redirectSignUp : toggleFavorite}
+              onClick={userName === null ? redirectSignUp : toggleFavorite}
               color="primary"
               aria-label="add to favorites"
               style={{ color: '#ffea00' }}

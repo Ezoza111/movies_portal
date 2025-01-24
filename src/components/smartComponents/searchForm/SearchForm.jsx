@@ -10,8 +10,13 @@ export default function SearchForm({ onSearch }) {
     onSearch(value); // Передаем значение в родительский компонент
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault(); // Отменяем перезагрузку страницы
+    onSearch(searchValue); // Передаем значение в родительский компонент при submit
+  };
+
   return (
-    <StyledSearchForm className='search-form'>
+    <StyledSearchForm className='search-form' onSubmit={handleSubmit}>
       <StyledInput
         type='text'
         placeholder='Search...'

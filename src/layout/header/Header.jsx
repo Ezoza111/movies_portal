@@ -19,7 +19,7 @@ export const Header = ({ userName }) => {
       <MainContainer direction={"row"} justify={"space-between"} align={"center"}>
         <Logo iconId={"logo"} />
         <ThemeIcon />
-        <SearchForm />
+        {/* <SearchForm /> */}
         <FavoritesLink />
         {userName === null ? <SignInLink />: <div>{`${userName}`.toLocaleUpperCase()}</div>}
         <SignUpLink />
