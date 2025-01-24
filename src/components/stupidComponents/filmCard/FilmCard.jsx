@@ -1,9 +1,19 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import { theme } from '../../../styles/Theme';
-import FilmModal from './FilmModal';
+import React, { useState } from "react";
+import styled from "styled-components";
+import { theme } from "../../../styles/Theme";
+import FilmModal from "./FilmModal";
 
-const FilmCard = ({ title, year, rank, image, description, runtimeMinutes, movieId, userName}) => {
+const FilmCard = ({
+  title,
+  year,
+  rank,
+  image,
+  description,
+  runtimeMinutes,
+  movieId,
+  updateFavorites,
+  userName
+}) => {
   const [open, setOpen] = useState(false);
 
   // Открытие и закрытие модалки
@@ -23,6 +33,7 @@ const FilmCard = ({ title, year, rank, image, description, runtimeMinutes, movie
 
       {/* Модалка с информацией о фильме */}
       <FilmModal
+        updateFavorites={updateFavorites}
         movieId={movieId}
         open={open}
         handleClose={handleClose}

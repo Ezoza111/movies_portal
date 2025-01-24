@@ -18,5 +18,5 @@ const StyledMain = styled.main`
   border: 1px solid red;
   padding-top: 30px;
   padding-bottom: 30px;
-  height: 80vh;
+  // height: 80vh;
 `;
