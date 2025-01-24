@@ -1,16 +1,16 @@
 import React from "react";
-import { Icon } from "../icon/Icon";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { IconButton } from "@mui/material";
+import ApiIcon from '@mui/icons-material/Api';
+import { theme } from "../../../styles/Theme";
 
-export const Logo = (props) => {
+export const Logo = ({classStyle}) => {
+  const navigate = useNavigate();
+  const styless = classStyle ? {color: theme.colors.accent} : {color: theme.colors.accentLight}
+
   return (
-    <Link to="/">
-       <Icon 
-        width="80px"
-        height="80px"
-        viewBox="0 0 45 45"
-        iconId={props.iconId}
-       />
-    </Link>
+    <IconButton style={styless} onClick={() => navigate('/')}>
+      <ApiIcon size="medium"/>APP
+    </IconButton>
   )
 }
