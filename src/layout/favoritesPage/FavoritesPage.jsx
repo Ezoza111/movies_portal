@@ -4,7 +4,6 @@ import { MainContainer } from "../../components/stupidComponents/container/MainC
 import FilmCard from "../../components/stupidComponents/filmCard/FilmCard";
 import { useLocalStorage } from "../../components/smartComponents/customHooks/useLocalStorage";
 import { v4 as uuidv4 } from "uuid";
-import { SignUpLink } from "../signUpPage/SignUpLink";
 import { MyButton } from "../../components/stupidComponents/button/MyButton";
 import { useNavigate } from "react-router-dom";
 

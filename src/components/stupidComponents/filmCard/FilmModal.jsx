@@ -9,7 +9,6 @@ import CalendarIcon from '@mui/icons-material/CalendarToday';
 import TimeIcon from '@mui/icons-material/AccessTime';
 import { theme } from '../../../styles/Theme';
 import { useLocalStorage } from '../../smartComponents/customHooks/useLocalStorage';
-import { SignUpLink } from '../../../layout/signUpPage/SignUpLink';
 import { useNavigate } from 'react-router-dom';
 
 const FilmModal = ({
