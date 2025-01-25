@@ -6,8 +6,8 @@ export const MyButton = (props) => {
    return (
       <Button variant="contained"
         onClick={props.functionClick}
-        children={props.name}
-        sx={{width: '10%', height: '50%'}}
+        children={props.name}q
+        style={{width: '10%', height: '40px'}}
         type={props.typeBtn}
       />
    )
