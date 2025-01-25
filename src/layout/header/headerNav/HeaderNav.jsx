@@ -6,7 +6,7 @@ import styled from 'styled-components';
 export const HeaderNav = ({userName, changeUserStatus}) => {
     const navigate = useNavigate();
 
-    const favorites = <MyButton name='Sign In'functionClick={() => navigate('/favorites')} />;
+    const favorites = <MyButton name='Favorites'functionClick={() => navigate('/favorites')} />;
     const signIn = <MyButton name='Sign In'functionClick={() => navigate('/login')} />;
     const signUp = <MyButton name='Sign Up'functionClick={() => navigate('/login')} />;
     const exit = <MyButton name='Exit' functionClick={()=>changeUserStatus(null)} />;
