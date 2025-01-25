@@ -1,30 +1,25 @@
 import React from "react";
 import styled from "styled-components";
 
-import { Logo } from "../../components/stupidComponents/logo/Logo";
 import { MainContainer } from "../../components/stupidComponents/container/MainContainer.styled";
 import SearchForm from "../../components/smartComponents/searchForm/SearchForm";
-import { SignUpLink } from "../signUpPage/SignUpLink";
-import { FavoritesLink } from "../favoritesPage/FavoritesLink";
-import { SignInLink } from "../signUpPage/SignInLink";
 import { theme } from "../../styles/Theme";
-import { useTheme } from "../../components/smartComponents/context/ThemeContext";
-import { ThemeIcon } from "../../components/stupidComponents/themeIcon/ThemeIcon";
-import { SignIn } from "./headerNav/SignIn";
+import { ThemeContext, useTheme } from "../../components/smartComponents/context/ThemeContext";
+import { Logo } from "./headerIcons/Logo";
+import { ThemeIcon } from "./headerIcons/ThemeIcon";
+import { HeaderNav } from "./headerNav/HeaderNav";
 
 export const Header = ({ userName, changeUserStatus}) => {
-  const {isDark} = useTheme();
+  const {isDark} = useTheme(ThemeContext);
   const classStyles = `header ${isDark ? 'dark' : 'light'}`;
 
   return (
     <StyledHeader className={classStyles}>
       <MainContainer>
-        <Logo classStyle={isDark}/>
+        <Logo/>
         <ThemeIcon />
         {/* <SearchForm /> */}
-        <FavoritesLink />
-        <SignIn userName={userName} changeUserStatus={changeUserStatus} />
-        <SignUpLink />
+        <HeaderNav userName={userName} changeUserStatus={changeUserStatus} />
       </MainContainer>
     </StyledHeader>
   );
