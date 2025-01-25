@@ -5,11 +5,13 @@ import FilmCard from "../../components/stupidComponents/filmCard/FilmCard";
 import { useLocalStorage } from "../../components/smartComponents/customHooks/useLocalStorage";
 import { v4 as uuidv4 } from "uuid";
 import { SignUpLink } from "../signUpPage/SignUpLink";
+import { MyButton } from "../../components/stupidComponents/button/MyButton";
+import { useNavigate } from "react-router-dom";
 
 export const FavoritesPage = ({ userName }) => {
   // Используем кастомный хук useLocalStorage для работы с localStorage
   const [favorites, setFavorites] = useLocalStorage([], "favorites");
-
+  const navigate = useNavigate();
   // useEffect(() => {
   //   // Загружаем актуальные данные при каждом монтировании страницы
   //   const storedFavorites = JSON.parse(localStorage.getItem("favorites")) || [];
@@ -25,8 +27,8 @@ export const FavoritesPage = ({ userName }) => {
     <MainContainer>
       {userName === null ? (
         <div>
-          Для просмотра фильмов перейдите по ссылке <SignUpLink /> для
-          регистрации или входа
+          Для просмотра фильмов перейдите по ссылке и зарегистрируйтесь
+          <MyButton name='Sign Up' functionClick={() => navigate('/login')} />
         </div>
       ) : (
         <StyledFilmListContainer>
