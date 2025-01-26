@@ -8,8 +8,8 @@ import { theme } from "./styles/Theme";
 import { BrowserRouter } from "react-router-dom";
 import { ThemeContextProvider } from "./components/smartComponents/context/ThemeContext";
 import { Provider } from 'react-redux';
-import store from './store'
-import { configureStore } from "@reduxjs/toolkit";
+import { PersistGate } from "redux-persist/integration/react";
+import store, {persistor} from './store'
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
@@ -18,7 +18,9 @@ root.render(
       <ThemeProvider theme={theme}>
         <ThemeContextProvider>
           <Provider store={store}>
-            <App />
+            <PersistGate loading={null} persistor={persistor}>
+              <App />
+            </PersistGate>
           </Provider>
         </ThemeContextProvider>
       </ThemeProvider>
