@@ -86,14 +86,13 @@ const StyledFilmCard = styled.div`
   }
 
   .text-container {
-    padding: 15px;
-    gap: 5px;
+    padding: 15px 15px 20px;
   }
 
   h2 {
     font-size: 18px;
     margin: 0;
-    padding-bottom: 5px;
+    padding-bottom: 7px;
   }
 
   p {
