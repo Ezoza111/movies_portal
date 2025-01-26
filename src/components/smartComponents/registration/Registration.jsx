@@ -10,8 +10,14 @@ import {
 } from "@mui/material";
 import { MyButton } from "../../stupidComponents/button/MyButton";
 import { buttonTheme } from "../../../styles/Theme";
+import {useSelector} from 'react-redux';
+import { useDispatch } from "react-redux";
+import {changeUserStatus} from '../../../store/usernameSlice'
 
-export const Register = ({ userName, changeUserStatus}) => {
+export const Register = () => {
+const {userName} = useSelector(state => state.userName.userName);
+const dispatch = useDispatch();
+const userAdd = (name) => {dispatch(changeUserStatus(`${name}`))};
 
   const [open, setOpen] = React.useState(false);
   const [nameValue, setNameValue] = React.useState("");
@@ -31,8 +37,7 @@ export const Register = ({ userName, changeUserStatus}) => {
         alert("Пользователь с таким именем уже существует!");
       } else {
         localStorage.setItem(`${nameValue}`, JSON.stringify([{ name: nameValue, password: passValue }]));
-        userName === null ? alert("Ура, вы зарегистрировались! Нажмите на кнопку Sign In для входа в приложение"): alert('Нажмите кнопку Exit для входа под другим именем')
-        //changeUserStatus(false);
+        userName === null ? userAdd(nameValue): alert('Нажмите кнопку Exit для входа под другим именем')
         handleClose();
       }
     };

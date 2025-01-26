@@ -8,7 +8,7 @@ import { Logo } from "./headerIcons/Logo";
 import { ThemeIcon } from "./headerIcons/ThemeIcon";
 import { HeaderNav } from "./headerNav/HeaderNav";
 
-export const Header = ({ userName, changeUserStatus}) => {
+export const Header = () => {
   const {isDark} = useTheme(ThemeContext);
   const classStyles = `header ${isDark ? 'dark' : 'light'}`;
 
@@ -18,7 +18,7 @@ export const Header = ({ userName, changeUserStatus}) => {
         <Logo/>
         <ThemeIcon />
         {/* <SearchForm /> */}
-        <HeaderNav userName={userName} changeUserStatus={changeUserStatus} />
+        <HeaderNav />
       </MainContainer>
     </StyledHeader>
   );

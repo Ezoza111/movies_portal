@@ -7,7 +7,9 @@ import { ThemeProvider } from "styled-components";
 import { theme } from "./styles/Theme";
 import { BrowserRouter } from "react-router-dom";
 import { ThemeContextProvider } from "./components/smartComponents/context/ThemeContext";
-
+import { Provider } from 'react-redux';
+import store from './store'
+import { configureStore } from "@reduxjs/toolkit";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
@@ -15,7 +17,9 @@ root.render(
       <GlobalStyles />
       <ThemeProvider theme={theme}>
         <ThemeContextProvider>
-          <App />
+          <Provider store={store}>
+            <App />
+          </Provider>
         </ThemeContextProvider>
       </ThemeProvider>
     </BrowserRouter>
