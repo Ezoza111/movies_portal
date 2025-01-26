@@ -7,10 +7,10 @@ export const RoutingComponent = () => {
   const {isDark} = useContext(ThemeContext);
   return (
     <>
-    <Header />
-    <main className={`main ${isDark ? 'dark' : 'light'}`}>
-      <Outlet />
-    </main>
+      <Header />
+      <main className={`main ${isDark ? 'dark' : 'light'}`}>
+        <Outlet />
+      </main>
     </>
   )
 }
