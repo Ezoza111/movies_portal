@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 
 import { MainContainer } from "../../components/stupidComponents/container/MainContainer.styled";
-import SearchForm from "../../components/smartComponents/searchForm/SearchForm";
 import { theme } from "../../styles/Theme";
 import { ThemeContext, useTheme } from "../../components/smartComponents/context/ThemeContext";
 import { Logo } from "./headerIcons/Logo";
@@ -24,6 +23,12 @@ export const Header = () => {
     </StyledHeader>
   );
 };
+
+const StyledWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 30px;
+`;
 
 const StyledHeader = styled.header`
   width: 100%;

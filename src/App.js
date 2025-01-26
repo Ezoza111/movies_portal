@@ -27,7 +27,7 @@ function App() {
       newUser.userName = props
       setUser(newUser)
     } 
-    if (props=== null) {
+    if (props === null) {
        newUser.userName = null
     setUser(newUser)
     }

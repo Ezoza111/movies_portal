@@ -8,14 +8,12 @@ import { useLocalStorage } from "../customHooks/useLocalStorage";
 import { ErrorFallback } from "../errorFallback/ErrorFallback";
 import { withErrorBoundary } from "react-error-boundary";
 import CustomLoader from "../../stupidComponents/customLoader/CustomLoader";
-import { v4 as uuidv4 } from "uuid";
 
 const FilmList = ({ userName }) => {
   const [movies, setMovies] = useLocalStorage([], "top250Movies");
   const [searchResults, setSearchResults] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  // const moviesArrayForExperement = [...movies];
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState("");
   const moviesPerPage = 10;
@@ -34,15 +32,6 @@ const FilmList = ({ userName }) => {
     },
   };
 
-  // const getSearchOptions = {
-  //   method: "GET",
-  //   url: "https://imdb236.p.rapidapi.com/imdb/search",
-  //   params: { query: debouncedQuery },
-  //   headers: {
-  //     "x-rapidapi-key": svetaApiKey,
-  //     "x-rapidapi-host": "imdb236.p.rapidapi.com",
-  //   },
-  // };
   const getSearchOptions = {
     method: "GET",
     url: "https://imdb236.p.rapidapi.com/imdb/autocomplete",
@@ -54,6 +43,7 @@ const FilmList = ({ userName }) => {
       "x-rapidapi-host": "imdb236.p.rapidapi.com",
     },
   };
+
   // const getSearchOptions = {
   //   method: "GET",
   //   url: "https://imdb236.p.rapidapi.com/imdb/search",
@@ -172,7 +162,7 @@ const FilmList = ({ userName }) => {
           {displayedMovies.length > 0 ? (
             displayedMovies.map((movie) => (
               <FilmCard
-                key={uuidv4()}
+                key={movie.id}
                 movieId={movie.id}
                 title={movie.primaryTitle}
                 year={movie.startYear}
@@ -223,8 +213,8 @@ const StyledSearchFormContainer = styled.div`
 const StyledFilmList = styled.div`
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
-  gap: 20px;
+  justify-content: space-evenly;
+  gap: 30px;
 `;
 
 const StyledPagination = styled.div`

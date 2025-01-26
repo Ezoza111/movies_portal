@@ -2,17 +2,18 @@ import styled from "styled-components";
 import { MainContainer } from "../../components/stupidComponents/container/MainContainer.styled";
 import FilmList from "../../components/smartComponents/filmList/FilmList";
 
-export const Main = ({userName}) => {
+export const Main = ({ userName }) => {
   return (
-    <StyledMain className='main'>
+    <StyledMain className='film-container'>
       <MainContainer direction={"column"}>
-        <FilmList userName={userName}/>
+        <FilmList userName={userName} />
       </MainContainer>
     </StyledMain>
   );
 };
 
-const StyledMain = styled.main`
+const StyledMain = styled.div`
+  // max-width: 1280px;
   display: flex;
   width: 100%;
   border: 1px solid red;

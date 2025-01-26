@@ -19,7 +19,7 @@ export default function SearchForm({ onSearch }) {
     <StyledSearchForm className='search-form' onSubmit={handleSubmit}>
       <StyledInput
         type='text'
-        placeholder='Search...'
+        placeholder='Start typing the movie title...'
         onChange={handleInputChange}
         value={searchValue}
       />
@@ -30,10 +30,12 @@ export default function SearchForm({ onSearch }) {
 const StyledSearchForm = styled.form`
   display: flex;
   gap: 10px;
+  width: 100%;
+  justify-content: center;
 `;
 const StyledInput = styled.input`
-  width: 50vw;
-  padding: 10px;
+  width: 50%;
+  padding: 10px 10px 10px 15px;
   border-radius: 100px;
   font-size: 16px;
 `;
