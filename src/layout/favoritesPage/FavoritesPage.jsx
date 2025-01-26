@@ -4,10 +4,12 @@ import { MainContainer } from "../../components/stupidComponents/container/MainC
 import FilmCard from "../../components/stupidComponents/filmCard/FilmCard";
 import { useLocalStorage } from "../../components/smartComponents/customHooks/useLocalStorage";
 import { v4 as uuidv4 } from "uuid";
+
 import { SignUpLink } from "../signUpPage/SignUpLink";
 import SwapVertIcon from "@mui/icons-material/SwapVert";
 import { theme } from "../../styles/Theme";
 import { Link } from "react-router-dom";
+
 
 export const FavoritesPage = ({ userName }) => {
   const localStorageKey = `favorites_${userName}`;
@@ -24,6 +26,7 @@ export const FavoritesPage = ({ userName }) => {
       setFavorites(storedFavorites);
     }
   }, [setFavorites, userName, localStorageKey]);
+
 
   const indexOfLastMovie = currentPage * moviesPerPage;
   const indexOfFirstMovie = indexOfLastMovie - moviesPerPage;
@@ -85,7 +88,7 @@ export const FavoritesPage = ({ userName }) => {
   // };
 
   return (
-    <MainContainer>
+    <MainContainer
       <StyledFavoritesPage>
         {userName === null ? (
           <p>
@@ -142,6 +145,7 @@ export const FavoritesPage = ({ userName }) => {
           </StyledFilmListContainer>
         )}
       </StyledFavoritesPage>
+
     </MainContainer>
   );
 };

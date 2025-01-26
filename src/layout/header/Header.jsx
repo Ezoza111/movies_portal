@@ -1,30 +1,24 @@
 import React from "react";
 import styled from "styled-components";
-import { Logo } from "../../components/stupidComponents/logo/Logo";
-import { MainContainer } from "../../components/stupidComponents/container/MainContainer.styled";
-import { SignUpLink } from "../signUpPage/SignUpLink";
-import { FavoritesLink } from "../favoritesPage/FavoritesLink";
-import { SignInLink } from "../signUpPage/SignInLink";
-import { theme } from "../../styles/Theme";
-import { useTheme } from "../../components/smartComponents/context/ThemeContext";
-import { ThemeIcon } from "../../components/stupidComponents/icon/ThemeIcon";
 
-export const Header = ({ userName }) => {
-  const { isDark } = useTheme();
+import { MainContainer } from "../../components/stupidComponents/container/MainContainer.styled";
+import { theme } from "../../styles/Theme";
+import { ThemeContext, useTheme } from "../../components/smartComponents/context/ThemeContext";
+import { Logo } from "./headerIcons/Logo";
+import { ThemeIcon } from "./headerIcons/ThemeIcon";
+import { HeaderNav } from "./headerNav/HeaderNav";
+
+export const Header = ({ userName, changeUserStatus}) => {
+  const {isDark} = useTheme(ThemeContext);
+  const classStyles = `header ${isDark ? 'dark' : 'light'}`;
+
   return (
-    <StyledHeader className={`header ${isDark ? "dark" : "light"}`}>
-      <MainContainer
-        direction={"row"}
-        justify={"space-between"}
-        align={"center"}>
-        <Logo iconId={"logo"} />
-        <StyledWrapper>
-          <ThemeIcon />
-          <FavoritesLink />
-          {/* {userName === null ? <SignInLink />: <div>{`${userName}`.toLocaleUpperCase()}</div>} */}
-          {userName !== null && <p style={{fontWeight: 'bold'}}>{`${userName}`.toLocaleUpperCase()}</p>}
-          <SignUpLink />
-        </StyledWrapper>
+    <StyledHeader className={classStyles}>
+      <MainContainer>
+        <Logo/>
+        <ThemeIcon />
+        {/* <SearchForm /> */}
+        <HeaderNav userName={userName} changeUserStatus={changeUserStatus} />
       </MainContainer>
     </StyledHeader>
   );
@@ -43,10 +37,29 @@ const StyledHeader = styled.header`
   display: flex;
   align-items: center;
 
+  div {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
   &.dark {
     background-color: ${theme.colors.primary};
+    color: ${theme.colors.font};
+
+    button {
+      background-color: transparent;
+      color: ${theme.colors.accent};
+      border: 1px solid ${theme.colors.accent};
+    }
   }
   &.light {
     background-color: ${theme.colors.primaryLight};
+    color: ${theme.colors.accentLight};
+
+    button {
+      background-color: transparent;
+      border: 1px solid ${theme.colors.accentLight};
+      color: ${theme.colors.accentLight};
+    }
   }
 `;
