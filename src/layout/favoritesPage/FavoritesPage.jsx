@@ -5,7 +5,6 @@ import FilmCard from "../../components/stupidComponents/filmCard/FilmCard";
 import { useLocalStorage } from "../../components/smartComponents/customHooks/useLocalStorage";
 import { v4 as uuidv4 } from "uuid";
 
-import { SignUpLink } from "../signUpPage/SignUpLink";
 import SwapVertIcon from "@mui/icons-material/SwapVert";
 import { theme } from "../../styles/Theme";
 import { Link } from "react-router-dom";
@@ -88,7 +87,7 @@ export const FavoritesPage = ({ userName }) => {
   // };
 
   return (
-    <MainContainer
+    <MainContainer>
       <StyledFavoritesPage>
         {userName === null ? (
           <p>
