@@ -1,16 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
-import Modal from '@mui/material/Modal';
-import Box from '@mui/material/Box';
-import IconButton from '@mui/material/IconButton';
-import StarBorderIcon from '@mui/icons-material/StarBorder';
-import StarIcon from '@mui/icons-material/Star';
-import CalendarIcon from '@mui/icons-material/CalendarToday';
-import TimeIcon from '@mui/icons-material/AccessTime';
-import { theme } from '../../../styles/Theme';
-import { useLocalStorage } from '../../smartComponents/customHooks/useLocalStorage';
-import { SignUpLink } from '../../../layout/signUpPage/SignUpLink';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import styled from "styled-components";
+import Modal from "@mui/material/Modal";
+import Box from "@mui/material/Box";
+import IconButton from "@mui/material/IconButton";
+import StarBorderIcon from "@mui/icons-material/StarBorder";
+import StarIcon from "@mui/icons-material/Star";
+import CalendarIcon from "@mui/icons-material/CalendarToday";
+import TimeIcon from "@mui/icons-material/AccessTime";
+import { theme } from "../../../styles/Theme";
+import { useNavigate } from "react-router-dom";
+import { useLocalStorage } from "../../smartComponents/customHooks/useLocalStorage";
 
 const FilmModal = ({
   open,
@@ -21,63 +20,50 @@ const FilmModal = ({
   rank,
   description,
   runtimeMinutes,
-  movieId, 
+  movieId,
   userName,
-  updateFavorites,
 }) => {
+  // Перенаправление на страницу регистрации
+  const navigate = useNavigate();
+  const redirectSignUp = () => navigate("/login");
+
+  const localStorageKey = `favorites_${userName}`;
   const [favorites, setFavorites] = useLocalStorage([], "favorites");
   const [favorite, setFavorite] = useState(false);
-  //перенаправление на страницу регистрации
-  const navigate = useNavigate();
-  const redirectSignUp = () => navigate('/login');
 
+  // Проверяем, есть ли фильм в избранном при загрузке модалки
   useEffect(() => {
-  // Проверяем, есть ли фильм в избранном только при монтировании или при изменении movieId
-  const isFavorite = favorites.some((film) => film.movieId === movieId);
-  
-  // Избегаем лишних обновлений состояния
-  if (isFavorite !== favorite) {
+    const isFavorite = favorites.some(film => film.movieId === movieId);
     setFavorite(isFavorite);
+  }, [movieId]);
+
+// Переключение избранного
+const toggleFavorite = () => {
+  const storedFavorites = JSON.parse(localStorage.getItem(localStorageKey)) || [];
+
+  if (favorite) {
+    // Если фильм уже в избранном, удаляем его
+    const updatedFavorites = storedFavorites.filter(film => film.movieId !== movieId);
+    setFavorites(updatedFavorites);
+    localStorage.setItem(localStorageKey, JSON.stringify(updatedFavorites));
+  } else {
+    // Если фильма нет в избранном, добавляем его
+    const newFavorite = {
+      title,
+      year,
+      image,
+      rank,
+      description,
+      runtimeMinutes,
+      movieId,
+    };
+    const updatedFavorites = [...storedFavorites, newFavorite];
+    setFavorites(updatedFavorites);
+    localStorage.setItem(localStorageKey, JSON.stringify(updatedFavorites));
   }
-}, [movieId, favorite, favorites]); // Здесь dependencies только те, что зависят от изменения movieId или текущего состояния favorite
 
-
-  // Переключение избранного
-  const toggleFavorite = () => {
-    let updatedFavorites;
-  
-    if (favorite) {
-      // Если фильм уже в избранном, удаляем его
-      updatedFavorites = favorites.filter((film) => film.movieId !== movieId);
-      console.log(updatedFavorites); // Логируем для проверки
-      
-    } else {
-      // Если фильма нет в избранном, добавляем его
-      const newFavorite = {
-        title,
-        year,
-        image,
-        rank,
-        description,
-        runtimeMinutes,
-        movieId,
-      };
-  
-      // Проверяем, не добавлен ли этот фильм раньше, и добавляем только если его нет
-      updatedFavorites = [...favorites, newFavorite];
-      console.log(updatedFavorites); // Логируем для проверки
-    }
-  
-    // Обновляем локальное хранилище и состояние
-    setFavorites(updatedFavorites); // Здесь favorites всегда будет обновляться без потерь
-    setFavorite(!favorite);
-  
-    // Проверяем, передана ли функция updateFavorites
-    if (updateFavorites) {
-      updateFavorites(updatedFavorites);
-    }
-  };
-  
+  setFavorite(!favorite);
+};
 
   return (
     <Modal
@@ -107,12 +93,11 @@ const FilmModal = ({
             <p>{description}</p>
             {/* Кнопка избранного */}
             <IconButton
-              className="icon-button"
+              className='icon-button'
               onClick={userName === null ? redirectSignUp : toggleFavorite}
-              color="primary"
-              aria-label="add to favorites"
-              style={{ color: '#ffea00' }}
-            >
+              color='primary'
+              aria-label='add to favorites'
+              style={{ color: "#ffea00" }}>
               {favorite ? <StarIcon /> : <StarBorderIcon />}
             </IconButton>
           </div>
