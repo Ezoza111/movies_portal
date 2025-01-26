@@ -3,14 +3,14 @@ import { Header } from '../layout/header/Header'
 import { ThemeContext } from '../components/smartComponents/context/ThemeContext'
 import { useContext } from 'react'
 
-export const RoutingComponent = ({ userName, changeUserStatus}) => {
+export const RoutingComponent = () => {
   const {isDark} = useContext(ThemeContext);
   return (
     <>
-    <Header  userName={userName} changeUserStatus={changeUserStatus}/>
-    <main className={`main ${isDark ? 'dark' : 'light'}`}>
-      <Outlet />
-    </main>
+      <Header />
+      <main className={`main ${isDark ? 'dark' : 'light'}`}>
+        <Outlet />
+      </main>
     </>
   )
 }

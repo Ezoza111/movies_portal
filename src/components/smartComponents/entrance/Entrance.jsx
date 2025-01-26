@@ -12,13 +12,19 @@ import React from "react";
 import { buttonTheme } from "../../../styles/Theme";
 import { ThemeProvider } from "@emotion/react";
 import { MyButton } from "../../stupidComponents/button/MyButton";
+import {useSelector} from 'react-redux';
+import {useDispatch} from 'react-redux';
+import {changeUserStatus} from '../../../store/usernameSlice'
 
 // вход
-export const Entrance = ({ userName, changeUserStatus}) => {
+export const Entrance = () => {
   const [open, setOpen] = React.useState(false);
   const [nameValue, setNameValue] = React.useState("");
   const [passValue, setPassValue] = React.useState("");
-  //const [userOutAccaunt, setUserOutAccaunt] = React.useState(true)
+  const {userName} = useSelector(state => state.userName.userName);
+  const dispatch = useDispatch();
+
+
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -29,10 +35,7 @@ export const Entrance = ({ userName, changeUserStatus}) => {
     const enterAccount = () => {
       const user = JSON.parse(localStorage.getItem(nameValue));
       if (user[0].password === passValue) {
-        console.log(`userStatus при клики на ышпт IN ${userName}`)
-        console.log(typeof nameValue);
-        changeUserStatus(`${nameValue}`)
-        console.log(`userStatus после клика IN ${userName}`)
+        dispatch(changeUserStatus(`${nameValue}`));
       } else {
         alert("Ой, не правильный пароль");
       }
@@ -94,7 +97,7 @@ export const Entrance = ({ userName, changeUserStatus}) => {
   ) : (
     <ThemeProvider theme={buttonTheme}>
       <>
-        <MyButton name='Exit' functionClick={()=>changeUserStatus(null)} />
+        <MyButton name='Exit' functionClick={() => dispatch(changeUserStatus(null))} />
       </>
     </ThemeProvider>
   );
