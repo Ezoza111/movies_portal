@@ -1,7 +1,7 @@
 import { createGlobalStyle } from "styled-components";
 import { theme } from "./Theme";
 
-export const GLobalStyles = createGlobalStyle`
+export const GlobalStyles = createGlobalStyle`
 *,
 *::after,
 *::before {
@@ -11,23 +11,12 @@ export const GLobalStyles = createGlobalStyle`
 }
 body {
   font-family: 'Roboto', sans-serif;
-  margin: 0 auto;
   min-height: 100vh;
-  height: 100%;
-  max-width: 1280px;
+  width: 100%;
   display: flex;
   flex-direction: column;
   background-color: ${theme.colors.primary};
   color: ${theme.colors.font};
-}
-main {
-  height: 100%;
-}
-.main.dark {
-  background-color: ${theme.colors.primary};
-}
-.main.light {
-  background-color: ${theme.colors.primaryLight};
 }
 a {
     text-decoration: none;
