@@ -2,10 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { Logo } from "../../components/stupidComponents/logo/Logo";
 import { MainContainer } from "../../components/stupidComponents/container/MainContainer.styled";
-import { Entrance } from "../../components/smartComponents/entrance/Entrance";
-import SearchForm from "../../components/smartComponents/searchForm/SearchForm";
 import { SignUpLink } from "../signUpPage/SignUpLink";
-import { Link } from "react-router-dom";
 import { FavoritesLink } from "../favoritesPage/FavoritesLink";
 import { SignInLink } from "../signUpPage/SignInLink";
 import { theme } from "../../styles/Theme";
@@ -13,20 +10,31 @@ import { useTheme } from "../../components/smartComponents/context/ThemeContext"
 import { ThemeIcon } from "../../components/stupidComponents/icon/ThemeIcon";
 
 export const Header = ({ userName }) => {
-  const {isDark} = useTheme();
+  const { isDark } = useTheme();
   return (
-    <StyledHeader className={`header ${isDark ? 'dark' : 'light'}`}>
-      <MainContainer direction={"row"} justify={"space-between"} align={"center"}>
+    <StyledHeader className={`header ${isDark ? "dark" : "light"}`}>
+      <MainContainer
+        direction={"row"}
+        justify={"space-between"}
+        align={"center"}>
         <Logo iconId={"logo"} />
-        <ThemeIcon />
-        {/* <SearchForm /> */}
-        <FavoritesLink />
-        {userName === null ? <SignInLink />: <div>{`${userName}`.toLocaleUpperCase()}</div>}
-        <SignUpLink />
+        <StyledWrapper>
+          <ThemeIcon />
+          <FavoritesLink />
+          {/* {userName === null ? <SignInLink />: <div>{`${userName}`.toLocaleUpperCase()}</div>} */}
+          {userName !== null && <p style={{fontWeight: 'bold'}}>{`${userName}`.toLocaleUpperCase()}</p>}
+          <SignUpLink />
+        </StyledWrapper>
       </MainContainer>
     </StyledHeader>
   );
 };
+
+const StyledWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 30px;
+`;
 
 const StyledHeader = styled.header`
   width: 100%;
@@ -36,9 +44,9 @@ const StyledHeader = styled.header`
   align-items: center;
 
   &.dark {
-    background-color: ${theme.colors.primary}
+    background-color: ${theme.colors.primary};
   }
   &.light {
-    background-color: ${theme.colors.primaryLight}
+    background-color: ${theme.colors.primaryLight};
   }
 `;
