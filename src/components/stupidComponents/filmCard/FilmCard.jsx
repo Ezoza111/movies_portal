@@ -1,18 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import styled from "styled-components";
 import { theme } from "../../../styles/Theme";
 import FilmModal from "./FilmModal";
+import { ThemeContext } from "../../smartComponents/context/ThemeContext";
 
 const FilmCard = ({
   title,
   year,
+  endYear,
   rank,
   image,
   description,
   runtimeMinutes,
   movieId,
-  updateFavorites,
-  userName
 }) => {
   const [open, setOpen] = useState(false);
 
@@ -20,12 +20,14 @@ const FilmCard = ({
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+  const { isDark } = useContext(ThemeContext);
+
   return (
     <>
       <StyledFilmCard className='film-card' onClick={handleOpen}>
         <img loading='lazy' src={image} alt={title} />
         <div className='text-container'>
-          <StyledRank>{rank}</StyledRank>
+          <StyledRank className={`${isDark ? "dark" : "light"}`}>{rank}</StyledRank>
           <h2>{title}</h2>
           <p>{year}</p>
         </div>
@@ -33,17 +35,16 @@ const FilmCard = ({
 
       {/* Модалка с информацией о фильме */}
       <FilmModal
-        updateFavorites={updateFavorites}
         movieId={movieId}
         open={open}
         handleClose={handleClose}
         title={title}
         year={year}
+        endYear={endYear}
         image={image}
         rank={rank}
         description={description}
         runtimeMinutes={runtimeMinutes}
-        userName={userName}
       />
     </>
   );
@@ -56,10 +57,18 @@ const StyledRank = styled.div`
   position: absolute;
   top: 0;
   right: 0;
-  background-color: ${theme.colors.accent[500]};
-  color: ${theme.colors.font};
   padding: 5px 10px;
   border-radius: 0 4px 0 4px;
+
+  &.dark {
+    background-color: ${theme.colors.accent};
+    color: #000000;
+  }
+
+  &.light {
+    background-color: ${theme.colors.accentLight};
+    color: ${theme.colors.font};
+  }
 `;
 
 const StyledFilmCard = styled.div`
