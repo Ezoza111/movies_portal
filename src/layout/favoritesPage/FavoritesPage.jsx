@@ -4,13 +4,14 @@ import { MainContainer } from "../../components/stupidComponents/container/MainC
 import FilmCard from "../../components/stupidComponents/filmCard/FilmCard";
 import { useLocalStorage } from "../../components/smartComponents/customHooks/useLocalStorage";
 import { v4 as uuidv4 } from "uuid";
-
 import SwapVertIcon from "@mui/icons-material/SwapVert";
 import { theme } from "../../styles/Theme";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
+const FavoritesPage = () => {
+  const { userName } = useSelector((state) => state.userName.userName);
 
-const FavoritesPage = ({ userName }) => {
   const localStorageKey = `favorites_${userName}`;
   const [favorites, setFavorites] = useLocalStorage([], "favorites");
   const [currentPage, setCurrentPage] = useState(1);
@@ -26,10 +27,9 @@ const FavoritesPage = ({ userName }) => {
     }
   }, [setFavorites, userName, localStorageKey]);
 
-
   const indexOfLastMovie = currentPage * moviesPerPage;
   const indexOfFirstMovie = indexOfLastMovie - moviesPerPage;
-  const numOfPages = Math.ceil(favorites.length / moviesPerPage);
+  const numOfPages = Math.max(1, Math.ceil(favorites.length / moviesPerPage));
 
   // Функция сортировки
   const sortMovies = (movies, key, ascending) => {
@@ -81,21 +81,18 @@ const FavoritesPage = ({ userName }) => {
     setIsAscending((prevState) => !prevState); // Меняем направление сортировки
   };
 
-  // const updateFavorites = (updatedFavorites) => {
-  //   setFavorites(updatedFavorites); // Обновляем избранное
-  //   localStorage.setItem("favorites", JSON.stringify(updatedFavorites)); // Сохраняем в localStorage
-  // };
-
   return (
     <MainContainer>
       <StyledFavoritesPage>
-        {userName === null ? (
-          <p>
-            {/* Для просмотра фильмов перейдите по ссылке <SignUpLink /> для
-            регистрации или входа */}
-            To add movies to your favorites list, follow the{" "}
-            <Link to='/login'>link</Link> to register or log in.
-          </p>
+        {!userName ? (
+          <StyledWarning>
+            <p>
+              {/* Для просмотра фильмов перейдите по ссылке <SignUpLink /> для
+              регистрации или входа */}
+              To add movies to your favorites list, follow the{" "}
+              <Link to='/login'>link</Link> to register or log in.
+            </p>
+          </StyledWarning>
         ) : (
           <StyledFilmListContainer>
             <h1>Favorite movies ({favorites.length})</h1>
@@ -144,7 +141,6 @@ const FavoritesPage = ({ userName }) => {
           </StyledFilmListContainer>
         )}
       </StyledFavoritesPage>
-
     </MainContainer>
   );
 };
@@ -156,14 +152,16 @@ const StyledFavoritesPage = styled.div`
 const StyledFilmListContainer = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   gap: 20px;
 `;
 
 const StyledFilmList = styled.div`
   display: flex;
   flex-wrap: wrap;
-  gap: 25px;
-  justify-content: flex-start;
+  justify-content: space-evenly;
+  gap: 30px;
 `;
 
 const StyledPagination = styled.div`

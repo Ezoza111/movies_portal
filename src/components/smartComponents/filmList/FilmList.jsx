@@ -44,25 +44,6 @@ const FilmList = ({ userName }) => {
     },
   };
 
-  // const getSearchOptions = {
-  //   method: "GET",
-  //   url: "https://imdb236.p.rapidapi.com/imdb/search",
-  //   params: {
-  //     primaryTitle: searchQuery,
-  //     query: debouncedQuery,
-  //     type: "movie",
-  //     // genre: "Drama",
-  //     // startYear: '2022',
-  //     rows: "25",
-  //     sortField: "id",
-  //     sortOrder: "ASC",
-  //   },
-  //   headers: {
-  //     "x-rapidapi-key": svetaApiKey,
-  //     "x-rapidapi-host": "imdb236.p.rapidapi.com",
-  //   },
-  // };
-
   useEffect(() => {
     const fetchMovies = async () => {
       setLoading(true);
@@ -116,7 +97,7 @@ const FilmList = ({ userName }) => {
 
   const indexOfLastMovie = currentPage * moviesPerPage;
   const indexOfFirstMovie = indexOfLastMovie - moviesPerPage;
-  const numOfPages = Math.ceil(movies.length / moviesPerPage);
+  const numOfPages = Math.max(1, Math.ceil(movies.length / moviesPerPage)); // если равен 0, тогда установить 1, иначе numsOfPages
   const currentMovies =
     Array.isArray(searchResults) && searchResults.length > 0
       ? searchResults
@@ -166,6 +147,7 @@ const FilmList = ({ userName }) => {
                 movieId={movie.id}
                 title={movie.primaryTitle}
                 year={movie.startYear}
+                endYear={movie.endYear}
                 rank={movie.averageRating}
                 image={movie.primaryImage}
                 runtimeMinutes={movie.runtimeMinutes}

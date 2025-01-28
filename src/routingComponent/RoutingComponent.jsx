@@ -7,7 +7,7 @@ import { theme } from "../styles/Theme";
 import { Suspense } from "react";
 
 const RoutingComponent = () => {
-  const { isDark, toggleTheme } = useContext(ThemeContext);
+  const { isDark } = useContext(ThemeContext);
   return (
     <StyledPageContainer className={`page-container ${isDark ? "dark" : "light"}`}>
       <div className='page-content'>

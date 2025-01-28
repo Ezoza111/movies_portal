@@ -3,29 +3,35 @@ import styled from "styled-components";
 
 import { MainContainer } from "../../components/stupidComponents/container/MainContainer.styled";
 import { theme } from "../../styles/Theme";
-import { ThemeContext, useTheme } from "../../components/smartComponents/context/ThemeContext";
+import {
+  ThemeContext,
+  useTheme,
+} from "../../components/smartComponents/context/ThemeContext";
 import { Logo } from "./headerIcons/Logo";
 import { ThemeIcon } from "./headerIcons/ThemeIcon";
 import { HeaderNav } from "./headerNav/HeaderNav";
 
 export const Header = () => {
-  const {isDark} = useTheme(ThemeContext);
-  const classStyles = `header ${isDark ? 'dark' : 'light'}`;
+  const { isDark } = useTheme(ThemeContext);
+  const classStyles = `header ${isDark ? "dark" : "light"}`;
 
   return (
     <StyledHeader className={classStyles}>
       <MainContainer>
-        <Logo/>
-        <ThemeIcon />
-        {/* <SearchForm /> */}
-        <HeaderNav />
+        <StyledWrapper>
+          <Logo />
+          <ThemeIcon />
+          <HeaderNav />
+        </StyledWrapper>
       </MainContainer>
     </StyledHeader>
   );
 };
 
 const StyledWrapper = styled.div`
+  width: 100%;
   display: flex;
+  justify-content: space-between;
   align-items: center;
   gap: 30px;
 `;
@@ -37,11 +43,6 @@ const StyledHeader = styled.header`
   display: flex;
   align-items: center;
 
-  div {
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-  }
   &.dark {
     background-color: ${theme.colors.primary};
     color: ${theme.colors.font};
