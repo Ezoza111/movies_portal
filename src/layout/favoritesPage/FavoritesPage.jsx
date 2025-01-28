@@ -10,7 +10,7 @@ import { theme } from "../../styles/Theme";
 import { Link } from "react-router-dom";
 
 
-export const FavoritesPage = ({ userName }) => {
+const FavoritesPage = ({ userName }) => {
   const localStorageKey = `favorites_${userName}`;
   const [favorites, setFavorites] = useLocalStorage([], "favorites");
   const [currentPage, setCurrentPage] = useState(1);
@@ -191,3 +191,5 @@ const StyledSwapVertIcon = styled(SwapVertIcon)`
   margin-left: 10px;
   background-color: ${theme.colors.accent[500]};
 `;
+
+export default FavoritesPage;
