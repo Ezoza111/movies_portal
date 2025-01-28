@@ -1,20 +1,21 @@
 import { Outlet } from "react-router-dom";
 import { Header } from "../layout/header/Header";
-import styled, { useTheme } from "styled-components";
+import styled  from "styled-components";
 import { ThemeContext } from "../components/smartComponents/context/ThemeContext";
 import { useContext } from "react";
 import { theme } from "../styles/Theme";
+import { Suspense } from "react";
 
-export const RoutingComponent = ({ userName, changeUserStatus }) => {
+const RoutingComponent = () => {
   const { isDark, toggleTheme } = useContext(ThemeContext);
   return (
-    <StyledPageContainer
-      className={`page-container ${isDark ? "dark" : "light"}`}>
+    <StyledPageContainer className={`page-container ${isDark ? "dark" : "light"}`}>
       <div className='page-content'>
-        <Header userName={userName} changeUserStatus={changeUserStatus} />
-        {/* <main className={`main ${isDark ? "dark" : "light"}`}> */}
+        <Header />
         <main>
+          <Suspense fallback={<p>Loading ...</p>}>
           <Outlet />
+          </Suspense>
         </main>
       </div>
     </StyledPageContainer>
@@ -35,3 +36,4 @@ const StyledPageContainer = styled.div`
   }
 `;
 
+export default RoutingComponent;
