@@ -97,7 +97,7 @@ const FilmList = ({ userName }) => {
 
   const indexOfLastMovie = currentPage * moviesPerPage;
   const indexOfFirstMovie = indexOfLastMovie - moviesPerPage;
-  const numOfPages = Math.ceil(movies.length / moviesPerPage); // если равен 0, тогда установить 1, иначе numsOfPages
+  const numOfPages = Math.max(1, Math.ceil(movies.length / moviesPerPage)); // если равен 0, тогда установить 1, иначе numsOfPages
   const currentMovies =
     Array.isArray(searchResults) && searchResults.length > 0
       ? searchResults
