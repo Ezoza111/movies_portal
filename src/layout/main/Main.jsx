@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { MainContainer } from "../../components/stupidComponents/container/MainContainer.styled";
 import FilmList from "../../components/smartComponents/filmList/FilmList";
 
-export const Main = ({ userName }) => {
+const Main = ({ userName }) => {
   return (
     <StyledMain className='film-container'>
       <MainContainer direction={"column"}>
@@ -21,3 +21,5 @@ const StyledMain = styled.div`
   padding-bottom: 30px;
   // height: 80vh;
 `;
+
+export default Main;

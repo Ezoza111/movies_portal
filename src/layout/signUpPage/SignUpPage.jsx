@@ -5,7 +5,7 @@ import { Register } from '../../components/smartComponents/registration/Registra
 import { Entrance } from '../../components/smartComponents/entrance/Entrance';
 import { theme } from '../../styles/Theme';
 
-export const SignUpPage = () => {
+const SignUpPage = () => {
     return ( 
         <MainContainer direction='column' justify='center' align='center' gap='40px' className='main'>
           <Register/>
@@ -19,3 +19,4 @@ const StyledBtn = styled.button`
   background-color: ${theme.colors.accent[500]};
   color: ${theme.colors.font};
 `
+export default SignUpPage;
