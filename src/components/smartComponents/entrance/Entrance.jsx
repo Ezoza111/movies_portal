@@ -1,6 +1,4 @@
 import {
-  Box,
-  Button,
   Dialog,
   DialogActions,
   DialogContent,
@@ -12,18 +10,18 @@ import React from "react";
 import { buttonTheme } from "../../../styles/Theme";
 import { ThemeProvider } from "@emotion/react";
 import { MyButton } from "../../stupidComponents/button/MyButton";
-import {useSelector} from 'react-redux';
-import {useDispatch} from 'react-redux';
-import {changeUserStatus} from '../../../store/usernameSlice'
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { changeUserStatus } from "../../../store/usernameSlice";
+import { useState } from "react";
 
 // вход
 export const Entrance = () => {
-  const [open, setOpen] = React.useState(false);
-  const [nameValue, setNameValue] = React.useState("");
-  const [passValue, setPassValue] = React.useState("");
-  const {userName} = useSelector(state => state.userName.userName);
+  const [open, setOpen] = useState(false);
+  const [nameValue, setNameValue] = useState("");
+  const [passValue, setPassValue] = useState("");
+  const { userName } = useSelector((state) => state.userName.userName);
   const dispatch = useDispatch();
-
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -36,28 +34,30 @@ export const Entrance = () => {
       const user = JSON.parse(localStorage.getItem(nameValue));
       if (user[0].password === passValue) {
         dispatch(changeUserStatus(`${nameValue}`));
+        dispatch(changeUserStatus(false));
       } else {
         alert("Ой, не правильный пароль");
       }
-    }
+    };
     localStorage.getItem(nameValue)
       ? enterAccount()
       : alert("Пользователя с таким именем не существует");
-  }
+  };
   return userName === null ? (
     <ThemeProvider theme={buttonTheme}>
       <MyButton name='Sign In' functionClick={handleClickOpen} />
       <Dialog
-        Dialog
         open={open}
         onClose={handleClose}
-        aria-labelledby='enrtanceDialog'
-
-        PaperProps={{ component: "form", onSubmit: 
-          (event) => {
-          event.preventDefault();
-          handleSignIn() }}}>
-        <DialogTitle id='enrtanceDialog' />
+        aria-labelledby='entranceDialog'
+        PaperProps={{
+          component: "form",
+          onSubmit: (event) => {
+            event.preventDefault();
+            handleSignIn();
+          },
+        }}>
+        <DialogTitle id='entranceDialog' />
         <DialogContent>
           <DialogContentText>Log in to see video</DialogContentText>
           <TextField
@@ -97,7 +97,10 @@ export const Entrance = () => {
   ) : (
     <ThemeProvider theme={buttonTheme}>
       <>
-        <MyButton name='Exit' functionClick={() => dispatch(changeUserStatus(null))} />
+        <MyButton
+          name='Exit'
+          functionClick={() => dispatch(changeUserStatus(null))}
+        />
       </>
     </ThemeProvider>
   );
