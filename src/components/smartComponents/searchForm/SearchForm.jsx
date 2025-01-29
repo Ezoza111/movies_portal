@@ -16,7 +16,7 @@ export default function SearchForm({ onSearch }) {
   };
 
   return (
-    <StyledSearchForm className='search-form' onSubmit={handleSubmit}>
+    <StyledSearchForm className='search-form' onSubmit={handleSubmit} id="search-form">
       <StyledInput
         type='text'
         placeholder='Start typing the movie title...'
