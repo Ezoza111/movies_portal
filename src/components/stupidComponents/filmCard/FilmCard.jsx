@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { theme } from "../../../styles/Theme";
 import FilmModal from "./FilmModal";
 import { ThemeContext } from "../../smartComponents/context/ThemeContext";
+import PropTypes from "prop-types";
 
 const FilmCard = ({
   title,
@@ -110,3 +111,14 @@ const StyledFilmCard = styled.div`
     color: rgba(255, 255, 255, 0.7);
   }
 `;
+
+PropTypes.propTypes = {
+  title: PropTypes.string.isRequired,
+  year: PropTypes.string.isRequired,
+  endYear: PropTypes.string,
+  rank: PropTypes.string.isRequired,
+  image: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+  runtimeMinutes: PropTypes.string.isRequired,
+  movieId: PropTypes.string.isRequired,
+};

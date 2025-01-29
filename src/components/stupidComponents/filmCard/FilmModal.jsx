@@ -11,6 +11,7 @@ import { theme } from "../../../styles/Theme";
 import { useNavigate } from "react-router-dom";
 import { useLocalStorage } from "../../smartComponents/customHooks/useLocalStorage";
 import { useSelector } from "react-redux";
+import PropTypes from "prop-types";
 
 const FilmModal = ({
   open,
@@ -234,3 +235,16 @@ const ModalBox = styled(Box)`
     max-width: 80%;
   }
 `;
+
+PropTypes.propTypes = {
+  open: PropTypes.bool.isRequired,
+  handleClose: PropTypes.func.isRequired,
+  title: PropTypes.string.isRequired,
+  year: PropTypes.string.isRequired,
+  endYear: PropTypes.string,
+  rank: PropTypes.string.isRequired,
+  image: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+  runtimeMinutes: PropTypes.string,
+  movieId: PropTypes.string.isRequired,
+};
