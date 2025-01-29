@@ -95,14 +95,22 @@ const FilmModal = ({
               <div className='info-wrap'>
                 <div className='icon-text-wrap'>
                   <CalendarIcon />
-                  {endYear ? <p>{year} – {endYear}</p> : <p>{year}</p>}
+                  {endYear ? (
+                    <p>
+                      {year} – {endYear}
+                    </p>
+                  ) : (
+                    <p>{year}</p>
+                  )}
                 </div>
-                {runtimeMinutes && <>
-                  <div className='icon-text-wrap'>
-                  <TimeIcon />
-                  <p>{runtimeMinutes} min</p>
-                </div>
-                </>} 
+                {runtimeMinutes && (
+                  <>
+                    <div className='icon-text-wrap'>
+                      <TimeIcon />
+                      <p>{runtimeMinutes} min</p>
+                    </div>
+                  </>
+                )}
                 <div className='icon-text-wrap'>
                   <StarIcon />
                   <p>{rank}</p>
