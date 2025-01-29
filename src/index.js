@@ -7,9 +7,9 @@ import { ThemeProvider } from "styled-components";
 import { theme } from "./styles/Theme";
 import { BrowserRouter } from "react-router-dom";
 import { ThemeContextProvider } from "./components/smartComponents/context/ThemeContext";
-import { Provider } from 'react-redux';
+import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
-import store, {persistor} from './store'
+import store, { persistor } from "./store";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
