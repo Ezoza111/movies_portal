@@ -187,7 +187,14 @@ const StyledControls = styled.div`
 const StyledSwapVertIcon = styled(SwapVertIcon)`
   cursor: pointer;
   margin-left: 10px;
-  background-color: ${theme.colors.accent[500]};
+  background-color: ${theme.colors.accentLight};
+`;
+
+const StyledWarning = styled.div`
+  display: grid;
+  justify-content: center;
+  height: calc(100dvh - 78px);
+  padding-top: 115px;
 `;
 
 export default FavoritesPage;
