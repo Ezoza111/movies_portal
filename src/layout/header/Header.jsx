@@ -50,6 +50,7 @@ const StyledHeader = styled.header`
       background-color: transparent;
       color: ${theme.colors.accent};
       border: 1px solid ${theme.colors.accent};
+      padding: 5px 10px;
     }
   }
   &.light {
@@ -60,6 +61,7 @@ const StyledHeader = styled.header`
       background-color: transparent;
       border: 1px solid ${theme.colors.accentLight};
       color: ${theme.colors.accentLight};
+      padding: 5px 10px;
     }
   }
 `;

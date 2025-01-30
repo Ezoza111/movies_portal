@@ -12,7 +12,7 @@ export const HeaderNav = () => {
   const dispatch = useDispatch();
 
   const favorites = (
-    <MyButton name='Favorites' functionClick={() => navigate("/favorites")} />
+    <MyButton name='Favorites' functionClick={() => navigate("/favorites")}/>
   );
   // const signIn = <MyButton name='Sign In'functionClick={() => navigate('/login')} />;
   const signUp = (
@@ -48,8 +48,4 @@ const StyledNav = styled.div`
   justify-content: flex-end;
   align-items: center;
   gap: 20px;
-
-  button {
-    width: 25%;
-  }
 `;
