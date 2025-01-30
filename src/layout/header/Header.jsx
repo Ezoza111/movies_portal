@@ -39,7 +39,6 @@ const StyledWrapper = styled.div`
 const StyledHeader = styled.header`
   width: 100%;
   height: 80px;
-  border: 1px solid red;
   display: flex;
   align-items: center;
 
