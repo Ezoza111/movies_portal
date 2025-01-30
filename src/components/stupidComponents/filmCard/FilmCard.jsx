@@ -1,8 +1,9 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useState, useContext } from "react";
 import styled from "styled-components";
 import { theme } from "../../../styles/Theme";
 import FilmModal from "./FilmModal";
 import { ThemeContext } from "../../smartComponents/context/ThemeContext";
+import PropTypes from "prop-types";
 
 const FilmCard = ({
   title,
@@ -15,7 +16,6 @@ const FilmCard = ({
   movieId,
 }) => {
   const [open, setOpen] = useState(false);
-
   // Открытие и закрытие модалки
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -27,7 +27,9 @@ const FilmCard = ({
       <StyledFilmCard className='film-card' onClick={handleOpen}>
         <img loading='lazy' src={image} alt={title} />
         <div className='text-container'>
-          <StyledRank className={`${isDark ? "dark" : "light"}`}>{rank}</StyledRank>
+          <StyledRank className={`${isDark ? "dark" : "light"}`}>
+            {rank}
+          </StyledRank>
           <h2>{title}</h2>
           <p>{year}</p>
         </div>
@@ -109,3 +111,14 @@ const StyledFilmCard = styled.div`
     color: rgba(255, 255, 255, 0.7);
   }
 `;
+
+PropTypes.propTypes = {
+  title: PropTypes.string.isRequired,
+  year: PropTypes.string.isRequired,
+  endYear: PropTypes.string,
+  rank: PropTypes.string.isRequired,
+  image: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+  runtimeMinutes: PropTypes.string.isRequired,
+  movieId: PropTypes.string.isRequired,
+};

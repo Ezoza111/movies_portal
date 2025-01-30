@@ -10,19 +10,22 @@ import {
 } from "@mui/material";
 import { MyButton } from "../../stupidComponents/button/MyButton";
 import { buttonTheme } from "../../../styles/Theme";
-import {useSelector} from 'react-redux';
+import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import {changeUserStatus} from '../../../store/usernameSlice'
+import { changeUserStatus } from "../../../store/usernameSlice";
+import { useState } from "react";
 
 export const Register = () => {
-const {userName} = useSelector(state => state.userName.userName);
-const dispatch = useDispatch();
-const userAdd = (name) => {dispatch(changeUserStatus(`${name}`))};
+  const { userName } = useSelector((state) => state.userName.userName);
+  const dispatch = useDispatch();
+  const userAdd = (name) => {
+    dispatch(changeUserStatus(`${name}`));
+  };
 
-  const [open, setOpen] = React.useState(false);
-  const [nameValue, setNameValue] = React.useState("");
-  const [passValue, setPassValue] = React.useState("");
-  const [passCheckValue, setPassCheckValue] = React.useState("");
+  const [open, setOpen] = useState(false);
+  const [nameValue, setNameValue] = useState("");
+  const [passValue, setPassValue] = useState("");
+  const [passCheckValue, setPassCheckValue] = useState("");
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -36,8 +39,13 @@ const userAdd = (name) => {dispatch(changeUserStatus(`${name}`))};
       if (localStorage.getItem(nameValue)) {
         alert("Пользователь с таким именем уже существует!");
       } else {
-        localStorage.setItem(`${nameValue}`, JSON.stringify([{ name: nameValue, password: passValue }]));
-        userName === null ? userAdd(nameValue): alert('Нажмите кнопку Exit для входа под другим именем')
+        localStorage.setItem(
+          `${nameValue}`,
+          JSON.stringify([{ name: nameValue, password: passValue }])
+        );
+        userName === null
+          ? userAdd(nameValue)
+          : alert("Нажмите кнопку Exit для входа под другим именем");
         handleClose();
       }
     };

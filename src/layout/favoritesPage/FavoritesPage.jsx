@@ -8,9 +8,13 @@ import SwapVertIcon from "@mui/icons-material/SwapVert";
 import { theme } from "../../styles/Theme";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import Pagination from "../../components/stupidComponents/pagination/Pagination";
+import { useContext } from "react";
+import { ThemeContext } from "../../components/smartComponents/context/ThemeContext";
 
 const FavoritesPage = () => {
   const { userName } = useSelector((state) => state.userName.userName);
+  const { isDark } = useContext(ThemeContext);
 
   const localStorageKey = `favorites_${userName}`;
   const [favorites, setFavorites] = useLocalStorage([], "favorites");
@@ -105,7 +109,10 @@ const FavoritesPage = () => {
                 <option value='rank'>Rank</option>
                 <option value='runtimeMinutes'>Runtime</option>
               </select>
-              <StyledSwapVertIcon onClick={handleSortDirectionToggle} />
+              <StyledSwapVertIcon
+                onClick={handleSortDirectionToggle}
+                className={`${isDark ? "dark" : "light"}`}
+              />
             </StyledControls>
             <StyledFilmList>
               {displayedMovies.length > 0 ? (
@@ -125,19 +132,12 @@ const FavoritesPage = () => {
                 <p>You don't have any favorite movies yet</p>
               )}
             </StyledFilmList>
-            <StyledPagination>
-              <button onClick={handlePrevPage} disabled={currentPage === 1}>
-                Prev
-              </button>
-              <span>
-                Page {currentPage} from {numOfPages}
-              </span>
-              <button
-                onClick={handleNextPage}
-                disabled={currentPage === numOfPages}>
-                Next
-              </button>
-            </StyledPagination>
+            <Pagination
+              currentPage={currentPage}
+              numOfPages={numOfPages}
+              onNext={handleNextPage}
+              onPrev={handlePrevPage}
+            />
           </StyledFilmListContainer>
         )}
       </StyledFavoritesPage>
@@ -164,19 +164,6 @@ const StyledFilmList = styled.div`
   gap: 30px;
 `;
 
-const StyledPagination = styled.div`
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  button {
-    padding: 5px 10px;
-    cursor: pointer;
-  }
-  span {
-    padding: 5px;
-  }
-`;
-
 const StyledControls = styled.div`
   display: flex;
   align-items: center;
@@ -187,7 +174,21 @@ const StyledControls = styled.div`
 const StyledSwapVertIcon = styled(SwapVertIcon)`
   cursor: pointer;
   margin-left: 10px;
-  background-color: ${theme.colors.accent[500]};
+
+  &.dark {
+    background-color: ${theme.colors.accent};
+    color: #000000;
+  }
+  &.light {
+    background-color: ${theme.colors.accentLight};
+  }
+`;
+
+const StyledWarning = styled.div`
+  display: grid;
+  justify-content: center;
+  height: calc(100dvh - 78px);
+  padding-top: 115px;
 `;
 
 export default FavoritesPage;
