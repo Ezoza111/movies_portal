@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { MainContainer } from "../../components/stupidComponents/container/MainContainer.styled";
-import FilmCard from "../../components/stupidComponents/filmCard/FilmCard";
+import FilmCard from "../../components/smartComponents/filmCard/FilmCard";
 import { useLocalStorage } from "../../components/smartComponents/customHooks/useLocalStorage";
 import { v4 as uuidv4 } from "uuid";
 import SwapVertIcon from "@mui/icons-material/SwapVert";
 import { theme } from "../../styles/Theme";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-import Pagination from "../../components/stupidComponents/pagination/Pagination";
+import Pagination from "../../components/smartComponents/pagination/Pagination";
 import { useContext } from "react";
 import { ThemeContext } from "../../components/smartComponents/context/ThemeContext";
 
