@@ -9,7 +9,7 @@ import CalendarIcon from "@mui/icons-material/CalendarToday";
 import TimeIcon from "@mui/icons-material/AccessTime";
 import { theme } from "../../../styles/Theme";
 import { useNavigate } from "react-router-dom";
-import { useLocalStorage } from "../../smartComponents/customHooks/useLocalStorage";
+import { useLocalStorage } from "../customHooks/useLocalStorage";
 import { useSelector } from "react-redux";
 import PropTypes from "prop-types";
 

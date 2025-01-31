@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
-import { ThemeContext } from "../../smartComponents/context/ThemeContext";
+import { ThemeContext } from "../context/ThemeContext";
 import { theme } from "../../../styles/Theme";
 
 const Pagination = ({ currentPage, numOfPages, onNext, onPrev }) => {
