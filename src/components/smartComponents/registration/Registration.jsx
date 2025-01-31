@@ -34,22 +34,22 @@ export const Register = () => {
     setOpen(false);
   };
 
-  const handleRegistration = (props) => {
+  const handleRegistration = () => {
     const checkUserName = () => {
       if (localStorage.getItem(nameValue)) {
         alert("Пользователь с таким именем уже существует!");
       } else {
-        localStorage.setItem(
+        nameValue !== false ?  localStorage.setItem(
           `${nameValue}`,
           JSON.stringify([{ name: nameValue, password: passValue }])
-        );
+        ) : alert('Введите корректное имя пользователя')
         userName === null
           ? userAdd(nameValue)
           : alert("Нажмите кнопку Exit для входа под другим именем");
         handleClose();
       }
     };
-    passValue.length < 4
+      passValue.trim().length < 4
       ? alert("Слишком короткий пароль! Нужно ввести минимум 4 символа!")
       : passValue === passCheckValue
       ? checkUserName()
@@ -80,7 +80,7 @@ export const Register = () => {
             id='name'
             value={nameValue}
             onChange={(event) => {
-              setNameValue(event.target.value);
+              setNameValue(event.target.value.trim());
             }}
             label='User Name'
             type='text'
@@ -93,7 +93,7 @@ export const Register = () => {
             id='pass'
             value={passValue}
             onChange={(event) => {
-              setPassValue(event.target.value);
+              setPassValue(event.target.value.trim());
             }}
             label='Password'
             type='Password'
@@ -106,7 +106,7 @@ export const Register = () => {
             id='passCheck'
             value={passCheckValue}
             onChange={(event) => {
-              setPassCheckValue(event.target.value);
+              setPassCheckValue(event.target.value.trim());
             }}
             label='Password'
             type='Password'
