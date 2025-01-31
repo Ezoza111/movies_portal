@@ -86,7 +86,7 @@ const FavoritesPage = () => {
   };
 
   return (
-    <MainContainer>
+    <MainContainer style={{ minHeight: "calc(100vh - 80px)" }}>
       <StyledFavoritesPage>
         {!userName ? (
           <StyledWarning>
@@ -155,6 +155,9 @@ const StyledFilmListContainer = styled.div`
   justify-content: center;
   align-items: center;
   gap: 20px;
+  h1 {
+  text-align: center;
+  }
 `;
 
 const StyledFilmList = styled.div`
@@ -185,10 +188,17 @@ const StyledSwapVertIcon = styled(SwapVertIcon)`
 `;
 
 const StyledWarning = styled.div`
+width: 100%;
   display: grid;
   justify-content: center;
-  height: calc(100dvh - 78px);
+  align-items: center;
   padding-top: 115px;
+  font-size: 1.5rem;
+  text-align: center;
+  text-wrap: balance;
+  p {
+    max-width: 600px;
+  }
 `;
 
 export default FavoritesPage;

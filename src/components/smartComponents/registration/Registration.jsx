@@ -58,7 +58,7 @@ export const Register = () => {
 
   return (
     <ThemeProvider theme={buttonTheme}>
-      <MyButton name='Sign Up' functionClick={handleClickOpen}></MyButton>
+      <MyButton maxWidth='200px' width='100%' name='Sign Up' functionClick={handleClickOpen}></MyButton>
       <Dialog
         open={open}
         onClose={handleClose}
@@ -71,8 +71,8 @@ export const Register = () => {
           },
         }}>
         <DialogTitle id='registrationDialog' />
-        <DialogContent>
-          <DialogContentText>Log in to see video</DialogContentText>
+        <DialogContent sx={{maxWidth: '500px'}}>
+          <DialogContentText>Please sign in to your account to be able to add movies to your favorites</DialogContentText>
           <TextField
             autoFocus
             required
@@ -113,9 +113,9 @@ export const Register = () => {
             fullWidth
           />
         </DialogContent>
-        <DialogActions>
-          <MyButton name='Sign Up' typeBtn='submit' />
-          <MyButton functionClick={handleClose} name='Cancel' />
+        <DialogActions sx={{justifyContent: 'center', paddingBottom: '32px'}}>
+          <MyButton maxWidth='150px' width='100%' name='Sign Up' typeBtn='submit' />
+          <MyButton maxWidth='150px' width='100%' functionClick={handleClose} name='Cancel' />
         </DialogActions>
       </Dialog>
     </ThemeProvider>

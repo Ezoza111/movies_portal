@@ -126,6 +126,8 @@ const FilmList = () => {
 };
 
 const StyledFilmListContainer = styled.div`
+height: 100%;
+  min-height: calc(100vh - 80px);
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -152,10 +154,11 @@ const StyledLoaderOverlay = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
+  min-height: calc(100vh - 80px);
   display: flex;
   justify-content: center;
   align-items: center;
-  background: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.5);
   z-index: 10;
 `;
 

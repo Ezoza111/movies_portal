@@ -16,7 +16,7 @@ export default Page404;
 const StyledPage404 = styled.div`
  display: grid;
  justify-content: center;
- height: calc(100dvh - 78px);
+ height: calc(100dvh - 80px);
 `
 
 const StyledContentContainer = styled.div`

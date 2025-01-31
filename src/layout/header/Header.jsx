@@ -10,18 +10,24 @@ import {
 import { Logo } from "./headerIcons/Logo";
 import { ThemeIcon } from "./headerIcons/ThemeIcon";
 import { HeaderNav } from "./headerNav/HeaderNav";
+import { HamburgerMenu } from "../../components/smartComponents/hamburgerMenu/HamburgerMenu";
 
 export const Header = () => {
   const { isDark } = useTheme(ThemeContext);
-  const classStyles = `header ${isDark ? "dark" : "light"}`;
 
   return (
-    <StyledHeader className={classStyles}>
+    <StyledHeader className={`${isDark ? "dark" : "light"}`}>
       <MainContainer>
         <StyledWrapper>
           <Logo />
           <ThemeIcon />
-          <HeaderNav />
+          {/* Гамбургер-меню для мобильных устройств */}
+          <HamburgerMenu isDark={isDark} />
+
+          {/* HeaderNav отображается только на экранах больше 520px */}
+          <HeaderNavWrapper>
+            <HeaderNav />
+          </HeaderNavWrapper>
         </StyledWrapper>
       </MainContainer>
     </StyledHeader>
@@ -34,6 +40,12 @@ const StyledWrapper = styled.div`
   justify-content: space-between;
   align-items: center;
   gap: 30px;
+`;
+
+const HeaderNavWrapper = styled.div`
+  @media (max-width: 520px) {
+    display: none;
+  }
 `;
 
 const StyledHeader = styled.header`

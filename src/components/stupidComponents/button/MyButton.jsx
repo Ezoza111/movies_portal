@@ -8,7 +8,14 @@ export const MyButton = (props) => {
       variant='contained'
       onClick={props.functionClick}
       children={props.name}
-      style={{ width: "30%", height: "40px", padding: "10px"}}
+      style={{
+        maxWidth: `${props.maxWidth}`,
+        width: `${props.width}`,
+        height: "40px",
+        padding: "10px",
+        backgroundColor: `${props.backgroundColor}`,
+        color: `${props.color}`,
+      }}
       type={props.typeBtn}
     />
   );

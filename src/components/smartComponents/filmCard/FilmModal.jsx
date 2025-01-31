@@ -12,6 +12,8 @@ import { useNavigate } from "react-router-dom";
 import { useLocalStorage } from "../customHooks/useLocalStorage";
 import { useSelector } from "react-redux";
 import PropTypes from "prop-types";
+import { MyButton } from "../../stupidComponents/button/MyButton";
+import { useTheme, ThemeContext } from "../context/ThemeContext";
 
 const FilmModal = ({
   open,
@@ -28,6 +30,7 @@ const FilmModal = ({
   // Перенаправление на страницу регистрации
   const navigate = useNavigate();
   const redirectSignUp = () => navigate("/login");
+  const { isDark } = useTheme(ThemeContext);
 
   const { userName } = useSelector((state) => state.userName.userName);
 
@@ -144,7 +147,15 @@ const FilmModal = ({
           <Box sx={{ ...modalStyle }}>
             <h2>You are not logged in</h2>
             <p>To add movies to your favorites, please log in.</p>
-            <button onClick={redirectSignUp}>Log in</button>
+            <MyButton
+              className={`btn-sign-in-warning ${isDark ? "dark" : "light"}`}
+              width='100%'
+              maxWidth='150px'
+              name='Log in'
+              backgroundColor={`${isDark ? `${theme.colors.accent}` : `${theme.colors.accentLight}`}`}
+              color={`${isDark ? '#000' : `${theme.colors.font}`}`}
+              functionClick={redirectSignUp}
+            />
           </Box>
         </WarningModalBox>
       </Modal>
@@ -163,8 +174,6 @@ const WarningModalBox = styled(Box)`
     padding-bottom: 20px;
   }
   button {
-    background-color: ${theme.colors.accentLight};
-    color: ${theme.colors.font};
     padding: 10px 20px;
     border-radius: 4px;
     cursor: pointer;

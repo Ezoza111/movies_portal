@@ -41,7 +41,7 @@ export const HeaderNav = () => {
 };
 
 const StyledNav = styled.div`
-  width: 40%;
+  // width: 40%;
   height: 100%;
   display: flex;
   flex-direction: row;
