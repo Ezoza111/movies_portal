@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import FilmCard from "../../stupidComponents/filmCard/FilmCard";
+import FilmCard from "../../smartComponents/filmCard/FilmCard";
 import styled from "styled-components";
 import SearchForm from "../searchForm/SearchForm";
 import { useDebounce } from "../customHooks/useDebounce";
@@ -7,7 +7,7 @@ import { useLocalStorage } from "../customHooks/useLocalStorage";
 import { ErrorFallback } from "../errorFallback/ErrorFallback";
 import { withErrorBoundary } from "react-error-boundary";
 import CustomLoader from "../../stupidComponents/customLoader/CustomLoader";
-import Pagination from "../../stupidComponents/pagination/Pagination";
+import Pagination from "../../smartComponents/pagination/Pagination";
 import {
   useGetTop250MoviesQuery,
   useSearchMoviesQuery,
@@ -20,9 +20,6 @@ const FilmList = () => {
   const moviesPerPage = 10;
 
   const debouncedQuery = useDebounce(searchQuery, 500);
-
-  const svetaApiKey = "60cbaed862mshc93b76ac963e23fp1b69d0jsn822fdd45c3a1";
-  const ezozaApiKey = "462584b673mshc931f4a3e9c8cdbp11fe33jsn59ea027bfb32";
 
   // Загружаем топ-250 фильмов, если они не сохранены в localStorage
   const {
