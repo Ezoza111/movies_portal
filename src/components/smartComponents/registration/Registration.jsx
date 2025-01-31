@@ -50,7 +50,7 @@ export const Register = () => {
       }
     };
     passValue.length < 4
-      ? alert("Слишком короткий пароль!")
+      ? alert("Слишком короткий пароль! Нужно ввести минимум 4 символа!")
       : passValue === passCheckValue
       ? checkUserName()
       : alert("Пароли не совпадают. Попробуйте снова");
