@@ -11,10 +11,7 @@ export const GlobalStyles = createGlobalStyle`
 }
 body {
   font-family: 'Roboto', sans-serif;
-  min-height: 100vh;
   width: 100%;
-  display: flex;
-  flex-direction: column;
   background-color: ${theme.colors.primary};
   color: ${theme.colors.font};
 }

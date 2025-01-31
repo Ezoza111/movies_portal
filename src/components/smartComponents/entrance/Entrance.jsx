@@ -45,7 +45,7 @@ export const Entrance = () => {
   };
   return userName === null ? (
     <ThemeProvider theme={buttonTheme}>
-      <MyButton name='Sign In' functionClick={handleClickOpen} />
+      <MyButton maxWidth='200px' width='100%' name='Sign In' functionClick={handleClickOpen} />
       <Dialog
         open={open}
         onClose={handleClose}
@@ -58,8 +58,8 @@ export const Entrance = () => {
           },
         }}>
         <DialogTitle id='entranceDialog' />
-        <DialogContent>
-          <DialogContentText>Log in to see video</DialogContentText>
+        <DialogContent sx={{maxWidth: '500px'}}>
+          <DialogContentText sx={{paddingBottom: '15px'}}>Please sign in to your account to be able to add movies to your favorites</DialogContentText>
           <TextField
             autoFocus
             required
@@ -88,9 +88,9 @@ export const Entrance = () => {
             fullWidth
           />
         </DialogContent>
-        <DialogActions>
-          <MyButton name='Sign in' typeBtn='submit' />
-          <MyButton functionClick={handleClose} name='Cancel' />
+        <DialogActions sx={{justifyContent: 'center', paddingBottom: '32px'}}>
+          <MyButton maxWidth='150px' width='100%' name='Sign in' typeBtn='submit' />
+          <MyButton maxWidth='150px' width='100%' functionClick={handleClose} name='Cancel' />
         </DialogActions>
       </Dialog>
     </ThemeProvider>

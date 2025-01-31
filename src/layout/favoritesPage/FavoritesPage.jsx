@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { MainContainer } from "../../components/stupidComponents/container/MainContainer.styled";
-import FilmCard from "../../components/stupidComponents/filmCard/FilmCard";
+import FilmCard from "../../components/smartComponents/filmCard/FilmCard";
 import { useLocalStorage } from "../../components/smartComponents/customHooks/useLocalStorage";
 import { v4 as uuidv4 } from "uuid";
 import SwapVertIcon from "@mui/icons-material/SwapVert";
 import { theme } from "../../styles/Theme";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-import Pagination from "../../components/stupidComponents/pagination/Pagination";
+import Pagination from "../../components/smartComponents/pagination/Pagination";
 import { useContext } from "react";
 import { ThemeContext } from "../../components/smartComponents/context/ThemeContext";
 
@@ -86,7 +86,7 @@ const FavoritesPage = () => {
   };
 
   return (
-    <MainContainer>
+    <MainContainer style={{ minHeight: "calc(100vh - 80px)" }}>
       <StyledFavoritesPage>
         {!userName ? (
           <StyledWarning>
@@ -155,6 +155,9 @@ const StyledFilmListContainer = styled.div`
   justify-content: center;
   align-items: center;
   gap: 20px;
+  h1 {
+  text-align: center;
+  }
 `;
 
 const StyledFilmList = styled.div`
@@ -185,10 +188,17 @@ const StyledSwapVertIcon = styled(SwapVertIcon)`
 `;
 
 const StyledWarning = styled.div`
+width: 100%;
   display: grid;
   justify-content: center;
-  height: calc(100dvh - 78px);
+  align-items: center;
   padding-top: 115px;
+  font-size: 1.5rem;
+  text-align: center;
+  text-wrap: balance;
+  p {
+    max-width: 600px;
+  }
 `;
 
 export default FavoritesPage;

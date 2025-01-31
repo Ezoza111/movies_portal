@@ -1,15 +1,25 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
-import { ThemeContext } from "../../smartComponents/context/ThemeContext";
+import { ThemeContext } from "../context/ThemeContext";
 import { theme } from "../../../styles/Theme";
 
 const Pagination = ({ currentPage, numOfPages, onNext, onPrev }) => {
   const { isDark } = useContext(ThemeContext);
+
+  const handleNext = () => {
+    onNext();
+    window.scrollTo(0, 0); // Прокрутка наверх
+  };
+
+  const handlePrev = () => {
+    onPrev();
+    window.scrollTo(0, 0); // Прокрутка наверх
+  };
   return (
     <StyledPagination>
       <button
         className={`${isDark ? "dark" : "light"}`}
-        onClick={onPrev}
+        onClick={handlePrev}
         disabled={currentPage === 1}>
         Prev
       </button>
@@ -18,7 +28,7 @@ const Pagination = ({ currentPage, numOfPages, onNext, onPrev }) => {
       </span>
       <button
         className={`${isDark ? "dark" : "light"}`}
-        onClick={onNext}
+        onClick={handleNext}
         disabled={currentPage === numOfPages}>
         Next
       </button>
